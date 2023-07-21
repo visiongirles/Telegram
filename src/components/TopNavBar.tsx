@@ -1,5 +1,5 @@
 function TopNavBar() {
-  return <div>TopNavBar</div>;
+  return <header className='top-nav-bar'>TopNavBar</header>;
 }
 
 export default TopNavBar;

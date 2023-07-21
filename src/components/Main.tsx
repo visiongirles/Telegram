@@ -6,9 +6,11 @@ function Main() {
   const [chatIsChosen, setChatIsChosen] = useState(true);
 
   return (
-    <div className='main'>
-      <SideNavBar />
-      {chatIsChosen ? <ChatBox /> : <></>}
+    <div className='main-container flex'>
+      <div className='left'>
+        <SideNavBar />
+      </div>
+      <div className='right'>{chatIsChosen ? <ChatBox /> : <></>}</div>
     </div>
   );
 }
