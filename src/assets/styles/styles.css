@@ -1,7 +1,8 @@
+/* used in  */
 html {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  pаdding: 0;
 }
 
 *,
@@ -11,8 +12,7 @@ html {
 }
 
 body {
-  /* background-color: hsl(200, 10%, 50%); */
-  background-image: url(./assets/pattern-23.svg);
+  background-image: url(../images/pattern-23.svg);
   background-repeat: repeat;
   color: white;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -25,31 +25,22 @@ body {
   display: block;
   color: white;
   background: lightseagreen;
-  /* border-radius: 10px; */
   padding: 0.5em;
 }
 
 .main {
   background: transparent;
-  border-radius: 0.5em;
-  /* width: 70%; */
-  /* padding: 1em 1.5em; */
+  /* border-radius: 0.5em; */
   height: 100vh;
 }
 
-/* 
-.main>*+* {
-  margin-top: 0;
-  padding-top: 0;
-  margin-left: 1.5em;
-} */
 
 .sidebar {
   background: white;
   color: black;
   border-radius: 0.5em;
-  /* width: 30%; */
   padding: 0.5em 0 0.5em 0.5em;
+  margin-right: 0;
   height: 100vh;
 }
 
@@ -62,10 +53,15 @@ body {
 }
 
 .logo {
+  object-fit: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+
+
 
 .col {
   flex-flow: column;
@@ -82,6 +78,7 @@ body {
 
 .message-box {
   display: flex;
+  flex-direction: column;
   border: 0.5px solid lightgrey;
   padding: 0.5em;
   border-radius: 1em;
@@ -93,6 +90,7 @@ body {
 
 .sidebarelement {
   background-color: white;
+  justify-content: space-between;
 }
 
 .left {
@@ -113,6 +111,16 @@ body {
 .last-activity {
   color: gray;
   font-size: 0.7rem;
+  text-align: right;
+}
+
+.unread-messages {
+  text-align: right;
+}
+
+.preview-group {
+  flex-grow: 2;
+
 }
 
 .user {
@@ -120,16 +128,9 @@ body {
   font-weight: bold;
 }
 
-/* .left-message {
-  display: flex;
-  justify-content: flex-start;
-}
-
-*/
 
 .right-message {
   align-self: flex-end;
-
 }
 
 .chatbox {
@@ -142,4 +143,7 @@ body {
   justify-content: right;
   margin-bottom: 0;
   margin-right: 0;
+  text-align: right;
+  font-size: 0.7rem;
+  color: gray;
 }

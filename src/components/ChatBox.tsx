@@ -1,23 +1,14 @@
 import MessageBox from './MessageBox';
-import MessageEditBox from './MessageEditPanel';
+import MessageSendBox from './MessageSendBox';
 import TopNavBar from './TopNavBar';
-import { Message } from '../interfaces/interface';
+import { Conversation, Message } from '../interfaces/interface';
 
-function ChatBox() {
-  const messages: Message[] = [
-    {
-      date: new Date('2015-03-25T12:00:00-06:30'),
-      sender: 'Max',
-      hasRead: true,
-      content: 'Привет Катя',
-    },
-    {
-      date: new Date('2015-03-25T12:00:00-07:30'),
-      sender: 'Kate',
-      hasRead: true,
-      content: 'Привет Макс',
-    },
-  ];
+interface ChatBoxProps {
+  conversation: Conversation;
+}
+
+function ChatBox({ conversation }: ChatBoxProps) {
+  const messages: Message[] = conversation.messages;
 
   return (
     <main className='main'>
@@ -25,15 +16,17 @@ function ChatBox() {
       <div className='chatbox'>
         {messages.map((message) => (
           <MessageBox
+            key={Math.random()}
             date={message.date}
             sender={message.sender}
+            defaultSender={message.defaultSender}
             hasRead={message.hasRead}
             content={message.content}
           />
         ))}
       </div>
 
-      <MessageEditBox />
+      <MessageSendBox />
     </main>
   );
 }

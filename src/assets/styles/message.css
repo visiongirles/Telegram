@@ -1,4 +1,7 @@
-div {
+/* взято как пример для ключка в облаке сообщений https://ru.stackoverflow.com/questions/962325/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BE%D0%BA%D0%BD%D0%BE-%D1%87%D0%B0%D1%82%D0%B0-%D0%BD%D0%B0-css */
+
+
+.cloud-message {
     float: left;
     background: silver;
     padding: 1em 1.5em;
@@ -7,8 +10,8 @@ div {
     line-height: 1.5em;
 }
 
-div::after,
-div::before {
+.cloud-message::after,
+.cloud-message::before {
     content: "";
     position: absolute;
     left: 100%;
@@ -17,10 +20,10 @@ div::before {
     height: 1.8em;
     border: .5em solid white;
     border-radius: 50%;
-    background: blue;
+    background: white;
 }
 
-div::before {
+.cloud-message::before {
     border-top: none;
     height: .9em;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;

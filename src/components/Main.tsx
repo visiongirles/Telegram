@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SideNavBar from './SideNavBar';
 import ChatBox from './ChatBox';
+import { userHistory } from '../serverResponse/ServerResponse';
 
 function Main() {
   const [chatIsChosen, setChatIsChosen] = useState(true);
@@ -8,9 +9,15 @@ function Main() {
   return (
     <div className='main-container flex'>
       <div className='left'>
-        <SideNavBar />
+        <SideNavBar conversations={userHistory.conversations} />
       </div>
-      <div className='right'>{chatIsChosen ? <ChatBox /> : <></>}</div>
+      <div className='right'>
+        {chatIsChosen ? (
+          <ChatBox conversation={userHistory.conversations[0]} />
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }

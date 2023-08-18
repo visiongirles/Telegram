@@ -1,13 +1,22 @@
 interface MessageBoxProps {
   date: Date;
   sender: string;
+  defaultSender: boolean;
   hasRead: boolean;
   content: string;
 }
 
-function MessageBox({ date, sender, hasRead, content }: MessageBoxProps) {
+function MessageBox({
+  date,
+  sender,
+  defaultSender,
+  hasRead,
+  content,
+}: MessageBoxProps) {
   const messageBoxStyle =
-    sender == 'Max' ? 'message-box left-message' : 'message-box right-message';
+    defaultSender == true
+      ? 'cloud-message message-box left-message'
+      : ' cloud-message message-box right-message';
   const minutes = date.getMinutes();
   const hours = date.getHours();
   const messageStatus = hasRead ? 'прочитано' : 'не прочитано';
@@ -15,12 +24,12 @@ function MessageBox({ date, sender, hasRead, content }: MessageBoxProps) {
   return (
     <>
       <div className={messageBoxStyle}>
-        <div className='flex col'>
-          {/* <div>{date.toDateString()}</div> */}
-          <div className='row'>{messageStatus}</div>
-          <div className='row'>{content}</div>
-          <div className='row time-sent right-message'>{timeSent}</div>
-        </div>
+        {/* <div className='flex col'> */}
+        {/* <div>{date.toDateString()}</div> */}
+        <div className='row'>{messageStatus}</div>
+        <div className='row'>{content}</div>
+        <div className='row time-sent'>{timeSent}</div>
+        {/* </div> */}
       </div>
     </>
   );

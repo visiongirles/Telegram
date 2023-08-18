@@ -1,4 +1,4 @@
-function MessageEditBox() {
+function MessageSendBox() {
   return (
     <>
       <form action=''>
@@ -11,4 +11,4 @@ function MessageEditBox() {
   );
 }
 
-export default MessageEditBox;
+export default MessageSendBox;

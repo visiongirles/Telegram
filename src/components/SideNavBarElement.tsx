@@ -10,8 +10,11 @@ function SideNavBarElement({ conversation }: SideNavBarElementProps) {
   const preview = conversation.messages[lastMessageIndex].content;
   const lastActivity =
     conversation.messages[lastMessageIndex].date.toUTCString();
-  const today = new Date().getDate();
+  const today = Date.now;
+
+  // week = 60 seconds * 60 minutes * 24 hours * 7 days
   const week = 60 * 60 * 24 * 7;
+
   const messageStatus = conversation.messages[lastMessageIndex].hasRead
     ? 'Y'
     : 'N';
@@ -20,13 +23,16 @@ function SideNavBarElement({ conversation }: SideNavBarElementProps) {
     <>
       <div className='flex sidebarelement'>
         <div className='col'>
-          <Logo image='cat1' />
+          <Logo
+            imageSrc={conversation.interlocutorProfilePicture}
+            imageAlt='profile photo'
+          />
         </div>
-        <div className='col underlined'>
-          <div className='user'>{conversation.user}</div>
+        <div className='col preview-group'>
+          <div className='user'>{conversation.interlocutorName}</div>
           <div className='preview'>{preview}</div>
         </div>
-        <div className='col underlined'>
+        <div className='col'>
           <div className='last-activity'>{lastActivity}</div>
           <div className='unread-messages'>{messageStatus}</div>
         </div>

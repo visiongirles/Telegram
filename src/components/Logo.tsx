@@ -1,16 +1,13 @@
-import cat1 from '../assets/images/cat1.avif';
-
 interface LogoProps {
-  image: string;
+  imageSrc: string;
+  imageAlt: string;
 }
 
 //TODO: настроить выбор фоточек из props
-function Logo({ image }: LogoProps) {
-  const imageSource = cat1;
-
+function Logo({ imageSrc, imageAlt }: LogoProps) {
   return (
     <>
-      <img className='logo' src={cat1} alt={image} />
+      <img className='logo' src={imageSrc} alt={imageAlt} />
     </>
   );
 }
