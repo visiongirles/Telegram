@@ -1,14 +1,16 @@
-/* used in  */
+/* || Overall settings */
 html {
   box-sizing: border-box;
   margin: 0;
-  pаdding: 0;
+  padding: 0;
 }
 
 *,
 ::before,
 ::after {
   box-sizing: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -17,9 +19,35 @@ body {
   color: white;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   line-height: 1.4;
-  margin: 0;
   min-height: 100vh;
 }
+
+
+/* || Main Component */
+
+.main-container {
+  /* TORESEARCH почему не работает 100vw */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.left {
+  display: flex;
+  min-width: 100px;
+  max-width: 350px;
+  flex-grow: auto;
+  overflow: hidden;
+  width: 100%;
+}
+
+.right {
+  display: flex;
+  flex-grow: 3;
+  width: 100%;
+}
+
+
 
 .top-nav-bar {
   display: block;
@@ -28,9 +56,9 @@ body {
   padding: 0.5em;
 }
 
+
 .main {
   background: transparent;
-  /* border-radius: 0.5em; */
   height: 100vh;
 }
 
@@ -38,19 +66,27 @@ body {
 .sidebar {
   background: white;
   color: black;
-  border-radius: 0.5em;
+  /* border-radius: 0.5em; */
   padding: 0.5em 0 0.5em 0.5em;
-  margin-right: 0;
-  height: 100vh;
+  /* .было */
+  /* margin-right: 0; */
+  /* стало */
+  /* margin-top: auto; */
+  /* margin-bottom: 0; */
+  /* align-items: stretch; */
+  /* flex-grow: 1; */
+  /* justify-content: space-around; */
+  /* flex: 1; */
+  /* flex-direction: row;
+  align-items: stretch; */
+  /* height: ; */
+
 }
 
 .flex {
   display: flex;
 }
 
-.main-container {
-  width: 100vw;
-}
 
 .logo {
   object-fit: cover;
@@ -85,7 +121,7 @@ body {
   background-color: white;
   color: black;
   width: 60%;
-
+  /* overflow: hidden; */
 }
 
 .sidebarelement {
@@ -93,14 +129,6 @@ body {
   justify-content: space-between;
 }
 
-.left {
-  width: 30%;
-}
-
-.right {
-  width: 70%;
-
-}
 
 .preview {
   color: gray;
@@ -129,6 +157,10 @@ body {
 }
 
 
+.left-message {
+  align-items: flex-start;
+}
+
 .right-message {
   align-self: flex-end;
 }
@@ -136,14 +168,15 @@ body {
 .chatbox {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .time-sent {
-  display: flex;
-  justify-content: right;
   margin-bottom: 0;
   margin-right: 0;
-  text-align: right;
+  align-self: flex-end;
   font-size: 0.7rem;
   color: gray;
 }
+
+.sendbox {}

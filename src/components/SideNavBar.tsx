@@ -10,7 +10,9 @@ function SideNavBar({ conversations }: SideNavBarProps) {
   return (
     <>
       <div className='flex col'>
-        <TopNavBar />
+        <div className='top-nav-bar '>
+          <TopNavBar />
+        </div>
         <div className='sidebar'>
           {conversations.map((conversation) => (
             <SideNavBarElement

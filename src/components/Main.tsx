@@ -7,7 +7,7 @@ function Main() {
   const [chatIsChosen, setChatIsChosen] = useState(true);
 
   return (
-    <div className='main-container flex'>
+    <div className='main-container'>
       <div className='left'>
         <SideNavBar conversations={userHistory.conversations} />
       </div>

@@ -11,7 +11,7 @@ function ChatBox({ conversation }: ChatBoxProps) {
   const messages: Message[] = conversation.messages;
 
   return (
-    <main className='main'>
+    <main className='main flex col'>
       <TopNavBar />
       <div className='chatbox'>
         {messages.map((message) => (
@@ -24,9 +24,8 @@ function ChatBox({ conversation }: ChatBoxProps) {
             content={message.content}
           />
         ))}
+        <MessageSendBox />
       </div>
-
-      <MessageSendBox />
     </main>
   );
 }
