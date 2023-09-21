@@ -113,7 +113,9 @@ body {
 }
 
 .preview-group {
-  flex-grow: 2;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
   padding: 0 0.5em;
 }
 

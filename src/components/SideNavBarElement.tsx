@@ -28,7 +28,7 @@ function SideNavBarElement({ conversation }: SideNavBarElementProps) {
             imageAlt='profile photo'
           />
         </div>
-        <div className='col preview-group'>
+        <div className='preview-group'>
           <div className='user'>{conversation.interlocutorName}</div>
           <div className='preview'>{preview}</div>
         </div>
