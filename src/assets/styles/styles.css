@@ -14,12 +14,31 @@ html {
 }
 
 body {
-  background-image: url(../images/pattern-23.svg);
+  /* TODO ниже чтобы кошечки в качестве бекграунда. пока мешают */
+  /* background-image: url(../images/pattern-23.svg); */
+  background-image: linear-gradient(180deg, lightblue, pink);
   background-repeat: repeat;
   color: white;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   line-height: 1.4;
   min-height: 100vh;
+}
+
+/* || Utilities */
+
+.flex {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-flow: column;
+}
+
+
+.row {
+  display: flex;
+  flex-flow: row;
 }
 
 
@@ -30,64 +49,50 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
+
 }
 
 .left {
   display: flex;
+  flex-flow: column;
+  flex-grow: 3;
   min-width: 100px;
   max-width: 350px;
-  flex-grow: auto;
   overflow: hidden;
   width: 100%;
+
 }
 
 .right {
   display: flex;
-  flex-grow: 3;
+  flex-grow: 1;
   width: 100%;
 }
 
 
-
+/* || TopNavBar */
 .top-nav-bar {
-  display: block;
+  display: flex;
+  flex-flow: row;
   color: white;
   background: lightseagreen;
+  width: 100%;
   padding: 0.5em;
 }
 
-
-.main {
-  background: transparent;
-  height: 100vh;
-}
-
-
+/* || SideNavBar */
 .sidebar {
+  display: flex;
+  flex-flow: column;
   background: white;
   color: black;
-  /* border-radius: 0.5em; */
-  padding: 0.5em 0 0.5em 0.5em;
-  /* .было */
-  /* margin-right: 0; */
-  /* стало */
-  /* margin-top: auto; */
-  /* margin-bottom: 0; */
-  /* align-items: stretch; */
-  /* flex-grow: 1; */
-  /* justify-content: space-around; */
-  /* flex: 1; */
-  /* flex-direction: row;
-  align-items: stretch; */
-  /* height: ; */
-
+  width: 100%;
+  padding: 0.5em;
+  /* min-height: 100vh; */
+  height: 100%;
 }
 
-.flex {
-  display: flex;
-}
-
-
+/* Logo */
 .logo {
   object-fit: cover;
   background-position: center center;
@@ -97,42 +102,30 @@ body {
   border-radius: 50%;
 }
 
-
-
-.col {
-  flex-flow: column;
-}
-
-
-.row {
-  flex-flow: row;
-}
-
-.underlined {
-  border-bottom: 1px solid lightgray;
-}
-
-.message-box {
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid lightgrey;
-  padding: 0.5em;
-  border-radius: 1em;
-  background-color: white;
-  color: black;
-  width: 60%;
-  /* overflow: hidden; */
-}
-
+/* || SideNavBarElement */
 .sidebarelement {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
   background-color: white;
   justify-content: space-between;
+  padding: 0.5em;
+}
+
+.preview-group {
+  flex-grow: 2;
+  padding: 0 0.5em;
+}
+
+.user {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 
 .preview {
   color: gray;
-  font-size: 0.7rem;
+  font-size: 1rem;
   text-align: left;
 }
 
@@ -146,14 +139,34 @@ body {
   text-align: right;
 }
 
-.preview-group {
-  flex-grow: 2;
+/* ChatBox */
 
+.main-content {
+  display: flex;
+  flex-flow: column;
+  background: transparent;
+  height: 100vh;
+  width: 100%;
 }
 
-.user {
-  font-size: 1rem;
-  font-weight: bold;
+.chatbox {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* || MessageBox */
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid lightgrey;
+  border-radius: 1em;
+  background-color: white;
+  color: black;
+  width: 60%;
+  padding: 0.5em;
 }
 
 
@@ -165,12 +178,6 @@ body {
   align-self: flex-end;
 }
 
-.chatbox {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
 .time-sent {
   margin-bottom: 0;
   margin-right: 0;
@@ -179,4 +186,18 @@ body {
   color: gray;
 }
 
-.sendbox {}
+
+.underlined {
+  border-bottom: 1px solid lightgray;
+}
+
+
+
+
+
+
+.sendbox {
+  display: flex;
+  width: 100%;
+
+}

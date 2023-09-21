@@ -21,7 +21,7 @@ function SideNavBarElement({ conversation }: SideNavBarElementProps) {
 
   return (
     <>
-      <div className='flex sidebarelement'>
+      <div className='sidebarelement'>
         <div className='col'>
           <Logo
             imageSrc={conversation.interlocutorProfilePicture}

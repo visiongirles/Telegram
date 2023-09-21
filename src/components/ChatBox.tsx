@@ -11,7 +11,7 @@ function ChatBox({ conversation }: ChatBoxProps) {
   const messages: Message[] = conversation.messages;
 
   return (
-    <main className='main flex col'>
+    <main className='main-content'>
       <TopNavBar />
       <div className='chatbox'>
         {messages.map((message) => (

@@ -15,8 +15,8 @@ function MessageBox({
 }: MessageBoxProps) {
   const messageBoxStyle =
     defaultSender == true
-      ? 'cloud-message message-box left-message'
-      : ' cloud-message message-box right-message';
+      ? 'message-box right-message'
+      : 'message-box left-message';
   const minutes = date.getMinutes();
   const hours = date.getHours();
   const messageStatus = hasRead ? 'прочитано' : 'не прочитано';
@@ -24,12 +24,11 @@ function MessageBox({
   return (
     <>
       <div className={messageBoxStyle}>
-        {/* <div className='flex col'> */}
-        {/* <div>{date.toDateString()}</div> */}
-        <div className='row'>{messageStatus}</div>
         <div className='row'>{content}</div>
-        <div className='row time-sent'>{timeSent}</div>
-        {/* </div> */}
+        <div className='row time-sent'>
+          <div>{messageStatus}</div>
+          <div>{timeSent}</div>
+        </div>
       </div>
     </>
   );
