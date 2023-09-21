@@ -1,3 +1,17 @@
+# Project name and description.
+
+Telegram prototype. This is a pet-project to demonstrate frone-end developing skills based on message-application Telegram.
+
+# Installation instructions.
+
+# Usage examples.
+
+# Dependencies and prerequisites.
+
+# Basic project structure.
+
+# Licensing information.
+
 # LEGACY BELOW . DELETE WHEN FINISHED IF NEEDED
 
 # React + TypeScript + Vite
