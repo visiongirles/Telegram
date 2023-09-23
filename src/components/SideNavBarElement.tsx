@@ -8,12 +8,13 @@ interface SideNavBarElementProps {
 function SideNavBarElement({ conversation }: SideNavBarElementProps) {
   const lastMessageIndex = conversation.messages.length - 1;
   const preview = conversation.messages[lastMessageIndex].content;
-  const lastActivity =
-    conversation.messages[lastMessageIndex].date.toUTCString();
-  const today = Date.now;
 
-  // week = 60 seconds * 60 minutes * 24 hours * 7 days
-  const week = 60 * 60 * 24 * 7;
+  const nowDateMiliSecond = Date.now();
+
+  // настроить потом https://momentjs.com/
+
+  const lastActivity =
+    conversation.messages[lastMessageIndex].date.toDateString();
 
   const messageStatus = conversation.messages[lastMessageIndex].hasRead
     ? 'Y'
