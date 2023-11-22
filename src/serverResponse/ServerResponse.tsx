@@ -28,7 +28,7 @@ export const userHistory: UserHistory = {
           content: 'Привет Катя',
         },
         {
-          date: new Date('2015-03-25T12:00:00-07:30'),
+          date: new Date('2023-03-25T12:00:00-07:30'),
           sender: 'Kate',
           defaultSender: true,
           hasRead: false,
@@ -42,18 +42,35 @@ export const userHistory: UserHistory = {
         'https://sun9-58.userapi.com/impf/c845524/v845524992/117955/E_B_jAs7RdI.jpg?size=901x911&quality=96&sign=574945e12af151018fa1c6e4372df78e&type=album',
       messages: [
         {
+          date: new Date('2013-05-25T12:00:00-07:30'),
+          sender: 'Kate',
+          defaultSender: true,
+          hasRead: true,
+          content:
+            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut sequi eum adipisci dolorem earum, a ad saepe! Doloremque, illum reprehenderit!',
+        },
+        {
+          date: new Date('2014-05-25T12:00:00-07:30'),
+          sender: 'Kate',
+          defaultSender: true,
+          hasRead: true,
+          content:
+            'Lorem, ipsum dolor sit aoluptatum iste eum adipisci dolorem earum, a ad saepe! Doloremque, illum reprehenderit!',
+        },
+        {
           date: new Date('2015-03-25T12:00:00-06:30'),
           sender: 'Max',
           defaultSender: false,
           hasRead: true,
-          content: 'Привет Катя',
+          content: 'Приветики конфетики',
         },
         {
-          date: new Date('2015-03-25T12:00:00-07:30'),
+          date: new Date('2016-05-25T12:00:00-07:30'),
           sender: 'Kate',
           defaultSender: true,
-          hasRead: false,
-          content: 'Привет Макс',
+          hasRead: true,
+          content:
+            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut sequi nesciunt quaerat. Vitae voluptatum iste eum adipisci dolorem earum, a ad saepe! Doloremque, illum reprehenderit!',
         },
       ],
     },

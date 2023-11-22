@@ -1,3 +1,10 @@
+/* VARIABLES */
+
+:root {
+  --messageHasRead: rgb(32, 228, 32);
+  --messageHasNotRead: rgb(167, 167, 167);
+}
+
 /* || Overall settings */
 html {
   box-sizing: border-box;
@@ -119,11 +126,31 @@ body {
   padding: 0 0.5em;
 }
 
+.status-group {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-end;
+  /* justify-content: space-between; */
+}
+
 .user {
   font-size: 1rem;
   font-weight: bold;
+  flex-grow: 1;
 }
 
+.last-activity {
+  color: gray;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.unread-messages {
+  font-size: 0.9rem;
+  text-align: right;
+  color: var(--messageHasRead);
+  padding-right: 0.4em;
+}
 
 .preview {
   color: gray;
@@ -131,15 +158,8 @@ body {
   text-align: left;
 }
 
-.last-activity {
-  color: gray;
-  font-size: 0.7rem;
-  text-align: right;
-}
 
-.unread-messages {
-  text-align: right;
-}
+
 
 /* ChatBox */
 
@@ -180,18 +200,30 @@ body {
   align-self: flex-end;
 }
 
-.time-sent {
+.message-status {
+  display: flex;
+  flex-flow: row;
   margin-bottom: 0;
   margin-right: 0;
   align-self: flex-end;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: gray;
 }
 
 
-.underlined {
-  border-bottom: 1px solid lightgray;
+.time-sent {
+  padding-right: 0.5em;
 }
+
+.messageStatusNotRead {
+  color: var(--messageHasNotRead);
+}
+
+.messageStatusRead {
+  color: var(--messageHasRead);
+}
+
+
 
 
 

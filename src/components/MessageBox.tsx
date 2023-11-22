@@ -19,15 +19,18 @@ function MessageBox({
       : 'message-box left-message';
   const minutes = date.getMinutes();
   const hours = date.getHours();
-  const messageStatus = hasRead ? 'прочитано' : 'не прочитано';
+  const messageStatus = hasRead ? 'vV' : 'v';
+  const messageStatusClass = hasRead
+    ? 'messageStatusRead'
+    : 'messageStatusNotRead';
   const timeSent = hours + ':' + minutes;
   return (
     <>
       <div className={messageBoxStyle}>
         <div className='row'>{content}</div>
-        <div className='row time-sent'>
-          <div>{messageStatus}</div>
-          <div>{timeSent}</div>
+        <div className='message-status'>
+          <div className='time-sent'>{timeSent}</div>
+          <div className={messageStatusClass}>{messageStatus}</div>
         </div>
       </div>
     </>
