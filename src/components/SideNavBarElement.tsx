@@ -27,7 +27,7 @@ function SideNavBarElement({
       textIfPreviewTooLong;
   }
 
-  // ВРЕМЕННО обрезала строку, чтоб отражался только еднь недели с помощью  .slice(0, 4)
+  // ВРЕМЕННО обрезала строку, чтоб отражался только день недели с помощью  .slice(0, 4)
   // TODO  настроить потом https://momentjs.com/
 
   const lastActivity = conversation.messages[lastMessageIndex].date

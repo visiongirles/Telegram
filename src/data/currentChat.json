@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "date": 1702033343,
+    "author": "Max",
+    "hasRead": true,
+    "isMine": false,
+    "content": "Привет Катя"
+  },
+  {
+    "id": 2,
+    "date": 1703033343,
+    "author": "Kate",
+    "recipient": "Max",
+    "hasRead": false,
+    "isMine": true,
+    "content": "Привет Макс"
+  }
+]
