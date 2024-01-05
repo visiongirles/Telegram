@@ -1,33 +1,20 @@
-import { useState } from 'react';
 import SideNavBar from './SideNavBar';
 import ChatBox from './ChatBox';
-import { userHistory } from '../serverResponse/ServerResponse';
-import { Conversation } from '../interfaces/interface';
+import { useMessangerStateContext } from './StateProvider';
 
 function Main() {
-  const [chatIsChosen, setChatIsChosen] = useState(false);
-  const [choosenChat, setChoosenChat] = useState({
-    interlocutorName: '',
-    interlocutorProfilePicture: '',
-    messages: [],
-  });
-
-  function onConversationClick(index: number) {
-    setChatIsChosen(true);
-    setChoosenChat(userHistory.conversations[index]);
-  }
+  const state = useMessangerStateContext();
+  const chatIsChosen = !!state.currentChat;
 
   return (
     <div className='main-container'>
       <div className='left'>
         <SideNavBar
-          conversations={userHistory.conversations}
-          onConversationClick={onConversationClick}
+        // conversations={userHistory.conversations}
+        // onConversationClick={onConversationClick}
         />
       </div>
-      <div className='right'>
-        {chatIsChosen ? <ChatBox conversation={choosenChat} /> : <></>}
-      </div>
+      {/* <div className='right'>{chatIsChosen && <ChatBox />}</div> */}
     </div>
   );
 }

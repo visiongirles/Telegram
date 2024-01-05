@@ -1,19 +1,15 @@
-import { Conversation } from '../interfaces/interface';
+// import { Conversation } from '../interfaces/interface';
+import { ChatPreview } from '../interfaces/interface';
 import Logo from './Logo';
+import { useMessangerStateContext } from './StateProvider';
 
 interface SideNavBarElementProps {
-  conversation: Conversation;
-  onConversationClick: () => void;
+  conversation: ChatPreview;
 }
 
-function SideNavBarElement({
-  conversation,
-  onConversationClick,
-}: SideNavBarElementProps) {
-  const lastMessageIndex = conversation.messages.length - 1;
-
-  let preview = conversation.messages[lastMessageIndex].content;
-
+function SideNavBarElement({ conversation }: SideNavBarElementProps) {
+  // const state = useMessangerStateContext();
+  let lastMessagePreview = conversation.lastMessage.content;
   // если строка длинее 27 символов, чтобы поместиться на одну строку, обрезаем и добавляем многоточие
 
   const maxLengthOfPreview = 30;
@@ -21,22 +17,20 @@ function SideNavBarElement({
   const startOfPreview = 0;
   const textIfPreviewTooLong = '...';
 
-  if (preview.length > maxLengthOfPreview) {
-    preview =
-      preview.slice(startOfPreview, maxLengthOfPreviewAfterEditing) +
+  if (lastMessagePreview.length > maxLengthOfPreview) {
+    lastMessagePreview =
+      lastMessagePreview.slice(startOfPreview, maxLengthOfPreviewAfterEditing) +
       textIfPreviewTooLong;
   }
 
   // ВРЕМЕННО обрезала строку, чтоб отражался только день недели с помощью  .slice(0, 4)
   // TODO  настроить потом https://momentjs.com/
 
-  const lastActivity = conversation.messages[lastMessageIndex].date
+  const lastActivity = new Date(conversation.lastMessage.date)
     .toDateString()
     .slice(0, 4);
 
-  const messageStatus = conversation.messages[lastMessageIndex].hasRead
-    ? 'vV'
-    : '';
+  const messageStatus = conversation.lastMessage.hasRead ? 'vV' : '';
 
   let sidebarelementClass = 'sidebarelement';
 
@@ -46,20 +40,17 @@ function SideNavBarElement({
 
   return (
     <>
-      <div className={sidebarelementClass} onClick={onConversationClick}>
+      <div className={sidebarelementClass}>
         <div className='col'>
-          <Logo
-            imageSrc={conversation.interlocutorProfilePicture}
-            imageAlt='profile photo'
-          />
+          <Logo imageSrc={conversation.photo} imageAlt='profile photo' />
         </div>
         <div className='preview-group'>
           <div className='status-group'>
-            <div className='user'>{conversation.interlocutorName}</div>
+            <div className='user'>{conversation.lastMessage.author}</div>
             <div className='unread-messages'>{messageStatus}</div>
             <div className='last-activity'>{lastActivity}</div>
           </div>
-          <div className='preview'>{preview}</div>
+          <div className='preview'>{lastMessagePreview}</div>
         </div>
       </div>
     </>

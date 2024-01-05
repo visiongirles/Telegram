@@ -32,7 +32,7 @@ export enum Status {
   Offline = 'offline',
 }
 
-export interface NavigationBarChat {
+export interface ChatPreview {
   chatId: number;
   photo: string;
   lastMessage: Message;
@@ -47,6 +47,6 @@ export interface CurrentChat {
 export interface Messanger {
   profile: Profile;
   settings: Settings;
-  navigationBarChats: NavigationBarChat[];
+  navigationBarChats: ChatPreview[];
   currentChat?: CurrentChat;
 }

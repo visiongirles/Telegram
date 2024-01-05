@@ -1,13 +1,9 @@
 import MessageBox from './MessageBox';
 import MessageSendBox from './MessageSendBox';
 import TopNavBar from './TopNavBar';
-import { Conversation, Message } from '../interfaces/interface';
+import { Message } from '../interfaces/interface';
 
-interface ChatBoxProps {
-  conversation: Conversation;
-}
-
-function ChatBox({ conversation }: ChatBoxProps) {
+function ChatBox() {
   const messages: Message[] = conversation.messages;
 
   return (

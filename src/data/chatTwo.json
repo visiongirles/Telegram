@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "date": 1703033343,
+    "author": "Kate",
+    "hasRead": true,
+    "isMine": true,
+    "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque, enim!"
+  },
+  {
+    "id": 2,
+    "date": 1702033343,
+    "author": "Yarik",
+    "hasRead": true,
+    "isMine": false,
+    "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt tempore deleniti aspernatur esse velit nemo. Voluptas quidem, recusandae ratione molestias soluta aut cum suscipit corrupti, accusamus eveniet qui accusantium provident perferendis non minus vel maxime voluptates nihil? Accusantium nesciunt ipsum quo reiciendis molestias delectus similique laboriosam odio iste! Beatae, suscipit?"
+  },
+  {
+    "id": 3,
+    "date": 1702033348,
+    "author": "Yarik",
+    "hasRead": true,
+    "isMine": false,
+    "content": "Lorem ipsum dolor sit. Sunt tempore deleniernatur esse velit nemo. Voluptas quidem, recusandae ratione molestias soluta aut cum suscipit corrupti, accusamus eveniet qui accusantium provident perferendis non minus vel maxime voluptates nihil? Accusantium nesciunt ipsum quo reiciendis molestias delectus similique laboriosam odio iste! Beatae, suscipit?"
+  }
+]

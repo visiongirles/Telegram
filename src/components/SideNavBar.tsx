@@ -1,22 +1,37 @@
 import TopNavBar from './TopNavBar';
-import { Conversation } from '../interfaces/interface';
 import SideNavBarElement from './SideNavBarElement';
+import {
+  MessangerAction,
+  useMessangerDispatchContext,
+  useMessangerStateContext,
+} from './StateProvider';
+import { useEffect } from 'react';
 
-interface SideNavBarProps {
-  conversations: Conversation[];
-  onConversationClick: (index: number) => void;
-}
+function SideNavBar() {
+  useEffect(() => {
+    dispatch({ type: MessangerAction.GetChats });
+  }, []);
+  const state = useMessangerStateContext();
+  const chatsPreview = state.navigationBarChats;
 
-function SideNavBar({ conversations, onConversationClick }: SideNavBarProps) {
+  const dispatch = useMessangerDispatchContext();
+
+  function onConversationClick(chatId: number) {
+    dispatch({
+      type: MessangerAction.ChangeCurrentChat,
+      updatedChatId: chatId,
+    });
+  }
+
   return (
     <>
       <TopNavBar />
       <div className='sidebar'>
-        {conversations.map((conversation, index) => (
+        {chatsPreview.map((chatPreview) => (
           <SideNavBarElement
-            key={Math.random()}
-            conversation={conversation}
-            onConversationClick={() => onConversationClick(index)}
+            key={chatPreview.chatId}
+            conversation={chatPreview}
+            onConversationClick={() => onConversationClick(chatPreview.chatId)}
           />
         ))}
       </div>
