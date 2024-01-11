@@ -39,7 +39,7 @@ export interface ChatPreview {
   draftMessage?: string;
 }
 
-export interface CurrentChat {
+export interface Chat {
   chatId: number;
   messages: Message[];
 }
@@ -47,6 +47,11 @@ export interface CurrentChat {
 export interface Messanger {
   profile: Profile;
   settings: Settings;
-  navigationBarChats: ChatPreview[];
-  currentChat?: CurrentChat;
+  chatsPreview: ChatPreview[];
+  currentChat?: Chat;
+}
+
+export interface Point2D {
+  x: number;
+  y: number;
 }

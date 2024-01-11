@@ -1,5 +1,27 @@
 /* VARIABLES */
 
+@font-face {
+  font-family: tgico;
+  src: url(src/assets/fonts/tgico.ttf?75kxnh) format('truetype'),
+    url(src/assets/fonts/tgico.woff?75kxnh) format('woff'),
+    url(src/assets/fonts/tgico.svg?75kxnh#tgico) format('svg');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+.tgico {
+  font-family: tgico !important;
+  speak: never;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
   --messageHasRead: rgb(32, 228, 32);
   --messageHasNotRead: rgb(167, 167, 167);
@@ -26,7 +48,7 @@ body {
   background-image: linear-gradient(180deg, lightblue, pink);
   background-repeat: repeat;
   color: white;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   line-height: 1.4;
   min-height: 100vh;
 }
@@ -42,12 +64,10 @@ body {
   flex-flow: column;
 }
 
-
 .row {
   display: flex;
   flex-flow: row;
 }
-
 
 /* || Main Component */
 
@@ -56,7 +76,6 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
-
 }
 
 .left {
@@ -67,7 +86,6 @@ body {
   max-width: 350px;
   overflow: hidden;
   width: 100%;
-
 }
 
 .right {
@@ -75,7 +93,6 @@ body {
   flex-grow: 1;
   width: 100%;
 }
-
 
 /* || TopNavBar */
 .top-nav-bar {
@@ -158,9 +175,6 @@ body {
   text-align: left;
 }
 
-
-
-
 /* ChatBox */
 
 .main-content {
@@ -183,14 +197,14 @@ body {
 .message-box {
   display: flex;
   flex-direction: column;
-  border: 0.5px solid lightgrey;
+  border: 1px solid lightgrey;
   border-radius: 1em;
   background-color: white;
   color: black;
   width: 60%;
   padding: 0.5em;
+  /* transform: translateY(1px) scaleX(1); */
 }
-
 
 .left-message {
   align-items: flex-start;
@@ -208,8 +222,8 @@ body {
   align-self: flex-end;
   font-size: 0.9rem;
   color: gray;
+  pointer-events: none;
 }
-
 
 .time-sent {
   padding-right: 0.5em;
@@ -223,15 +237,29 @@ body {
   color: var(--messageHasRead);
 }
 
-
-
-
-
-
-
-
 .sendbox {
   display: flex;
   width: 100%;
+}
 
+/* || MessageMenuButton */
+
+.messageMenuButtonContainer {
+  display: flex;
+  flex-flow: column;
+  position: fixed;
+  z-index: 2;
+  /* min-width: 1rem; */
+  border: 1px solid lightgrey;
+  border-radius: 1em;
+  background-color: white;
+  color: black;
+  padding: 0.5em;
+  max-width: max-content;
+}
+
+.button-edit {
+}
+
+.button-delete {
 }

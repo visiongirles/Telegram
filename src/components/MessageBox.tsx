@@ -1,33 +1,37 @@
+// interface MessageBoxProps {
+//   date: Date;
+//   author: string;
+//   defaultSender: boolean;
+//   hasRead: boolean;
+//   content: string;
+
+import { Message } from '../interfaces/interface';
+import getTimeFormatter from '../utils/getTimeFormatter';
+
+// }
 interface MessageBoxProps {
-  date: Date;
-  sender: string;
-  defaultSender: boolean;
-  hasRead: boolean;
-  content: string;
+  message: Message;
+  onContextMenu: (messageId: number, event: React.MouseEvent) => void;
 }
 
-function MessageBox({
-  date,
-  sender,
-  defaultSender,
-  hasRead,
-  content,
-}: MessageBoxProps) {
+function MessageBox({ message, onContextMenu }: MessageBoxProps) {
   const messageBoxStyle =
-    defaultSender == true
+    message.isMine == true
       ? 'message-box right-message'
       : 'message-box left-message';
-  const minutes = date.getMinutes();
-  const hours = date.getHours();
-  const messageStatus = hasRead ? 'vV' : 'v';
-  const messageStatusClass = hasRead
-    ? 'messageStatusRead'
-    : 'messageStatusNotRead';
-  const timeSent = hours + ':' + minutes;
+
+  const messageStatus = message.hasRead ? '\ue901' : '\ue900';
+  const messageStatusClass = message.hasRead
+    ? 'messageStatusRead tgico'
+    : 'messageStatusNotRead tgico';
+  const timeSent = getTimeFormatter(message.date);
   return (
     <>
-      <div className={messageBoxStyle}>
-        <div className='row'>{content}</div>
+      <div
+        className={messageBoxStyle}
+        onContextMenu={(event) => onContextMenu(message.id, event)}
+      >
+        <div className='row'>{message.content}</div>
         <div className='message-status'>
           <div className='time-sent'>{timeSent}</div>
           <div className={messageStatusClass}>{messageStatus}</div>

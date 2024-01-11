@@ -1,10 +1,10 @@
 import SideNavBar from './SideNavBar';
 import ChatBox from './ChatBox';
-import { useMessangerStateContext } from './StateProvider';
+import { useMessangerStateContext } from '../context/stateContext';
 
 function Main() {
   const state = useMessangerStateContext();
-  const chatIsChosen = !!state.currentChat;
+  // const chatIsChosen = !!state.currentChat;
 
   return (
     <div className='main-container'>
@@ -14,7 +14,7 @@ function Main() {
         // onConversationClick={onConversationClick}
         />
       </div>
-      {/* <div className='right'>{chatIsChosen && <ChatBox />}</div> */}
+      <div className='right'>{<ChatBox currentChat={state.currentChat} />}</div>
     </div>
   );
 }
