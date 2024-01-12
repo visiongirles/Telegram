@@ -258,8 +258,10 @@ body {
   max-width: max-content;
 }
 
-.button-edit {
+.button-edit:hover {
+  background-color: gray;
 }
 
-.button-delete {
+.button-delete:hover {
+  background-color: gray;
 }

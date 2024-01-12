@@ -24,7 +24,8 @@ const deleteChatAction = (chatId: number) =>
     chatId,
   } as const);
 
-//TODO: а кто будет следить какие id не заняты? не сервер. я буду в reducer
+//TODO: а кто будет следить какие id не заняты? сервер будет выдавать, но и на фронте надо врменный
+// т.к. сообщения которын ещё не ушли на сервер, не должны пропадать
 const getChatsAction = () =>
   ({ type: MessangerAction.GetChatsPreview } as const);
 

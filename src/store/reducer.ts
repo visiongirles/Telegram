@@ -33,7 +33,7 @@ export function messangerReducer(state: Messanger, action: Action): Messanger {
     }
 
     case MessangerAction.SendMessage: {
-      if (state.currentChat?.chatId === undefined) return state;
+      if (state.currentChat === undefined) return state;
 
       // подумать state.currentChat?.messages.push(action.message)
       const updatedMessages: Message[] = [
@@ -46,6 +46,20 @@ export function messangerReducer(state: Messanger, action: Action): Messanger {
           ...state.currentChat,
           messages: updatedMessages,
         },
+      };
+      return updatedState;
+    }
+
+    case MessangerAction.DeleteMessage: {
+      if (state.currentChat === undefined) return state;
+      const updatedMessages: Message[] = state.currentChat?.messages.filter(
+        (message) => {
+          return message.id !== action.messageId;
+        }
+      );
+      const updatedState: Messanger = {
+        ...state,
+        currentChat: { ...state.currentChat, messages: updatedMessages },
       };
       return updatedState;
     }
