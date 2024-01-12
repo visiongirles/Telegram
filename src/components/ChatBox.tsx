@@ -22,11 +22,16 @@ function ChatBox({ currentChat }: ChatBoxProps) {
     initialContextMenuButtonOptions
   );
 
+  const contextButtonRef = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     const onClickOutsideHandler = (event: MouseEvent) => {
+      const something = event.target as HTMLElement;
+      if (something.className.includes('button')) return;
+      // console.log(event);
       if (
-        contextMenuButtonOptions.visibility &&
-        event.button === LEFT_BUTTON_CLICK
+        contextMenuButtonOptions.visibility
+        // event.button === LEFT_BUTTON_CLICK
       ) {
         setContextMenuButtonOptions(initialContextMenuButtonOptions);
       }
@@ -43,7 +48,7 @@ function ChatBox({ currentChat }: ChatBoxProps) {
 
   function handleContextMenu(messageId: number, event: React.MouseEvent) {
     event.preventDefault();
-    console.log(event);
+    // console.log(event);
     setCoords({ x: event.clientX, y: event.clientY });
     setContextMenuButtonOptions({
       visibility: true,
@@ -56,8 +61,9 @@ function ChatBox({ currentChat }: ChatBoxProps) {
       <TopNavBar />
       <div className='chatbox'>
         {messages.map((message) => (
-          <Fragment key={message.id}>
+          <Fragment>
             <MessageBox
+              key={message.id}
               message={message}
               onContextMenu={handleContextMenu}
               coords={coords}
