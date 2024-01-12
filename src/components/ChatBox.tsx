@@ -22,15 +22,16 @@ function ChatBox({ currentChat }: ChatBoxProps) {
     initialContextMenuButtonOptions
   );
 
-  const contextButtonRef = useRef<HTMLUListElement>(null);
+  const contextButtonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onClickOutsideHandler = (event: MouseEvent) => {
-      const something = event.target as HTMLElement;
-      if (something.className.includes('button')) return;
+      // const something = event.target as HTMLElement;
+      // if (event.target.className.includes('button')) return;
       // console.log(event);
       if (
-        contextMenuButtonOptions.visibility
+        contextMenuButtonOptions.visibility &&
+        !contextButtonRef.current?.contains(event.target as Node)
         // event.button === LEFT_BUTTON_CLICK
       ) {
         setContextMenuButtonOptions(initialContextMenuButtonOptions);
@@ -61,20 +62,21 @@ function ChatBox({ currentChat }: ChatBoxProps) {
       <TopNavBar />
       <div className='chatbox'>
         {messages.map((message) => (
-          <Fragment>
-            <MessageBox
-              key={message.id}
-              message={message}
-              onContextMenu={handleContextMenu}
-              coords={coords}
-              contextMenuButtonVisibality={contextMenuButtonOptions}
-            />
-            {/* {contextMenuButtonVisibality &&
-              message.id === contextMenuButtonVisibality.chosenMessageId && (
-                <MessageMenuButton messageId={message.id} coords={coords} />
-              )} */}
-          </Fragment>
+          <MessageBox
+            key={message.id}
+            message={message}
+            onContextMenu={handleContextMenu}
+            coords={coords}
+            contextMenuButtonVisibality={contextMenuButtonOptions}
+          />
         ))}
+        {contextMenuButtonOptions.visibility && (
+          <MessageMenuButton
+            ref={contextButtonRef}
+            messageId={contextMenuButtonOptions.chosenMessageId}
+            coords={coords}
+          />
+        )}
       </div>
       <MessageSendBox />
     </main>

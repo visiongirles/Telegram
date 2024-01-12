@@ -1,3 +1,4 @@
+import { ForwardedRef, forwardRef } from 'react';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
 import { Point2D } from '../interfaces/interface';
 import { MessangerAction } from '../store/actions';
@@ -7,10 +8,10 @@ interface MessageMenuButtonProps {
   coords: Point2D;
 }
 
-export function MessageMenuButton({
-  messageId,
-  coords,
-}: MessageMenuButtonProps) {
+export const MessageMenuButton = forwardRef(function MessageMenuButton(
+  { messageId, coords }: MessageMenuButtonProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   const dispatch = useMessangerDispatchContext();
 
   function handleDeleteMessage(event: React.MouseEvent) {
@@ -18,12 +19,9 @@ export function MessageMenuButton({
     dispatch({ type: MessangerAction.DeleteMessage, messageId: messageId });
   }
 
-  // function handleEditMessage() {
-  //   dispatch({ type: MessangerAction.EditMessage, message: {} });
-  // }
-  console.log('Dratuti');
   return (
     <div
+      ref={ref}
       className='messageMenuButtonContainer'
       style={{ top: coords.y, left: coords.x }}
     >
@@ -36,4 +34,4 @@ export function MessageMenuButton({
       </div>
     </div>
   );
-}
+});

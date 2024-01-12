@@ -1,10 +1,6 @@
-// import { Conversation } from '../interfaces/interface';
 import { ChatPreview } from '../interfaces/interface';
 import dateFormatter from '../utils/dateFormatter';
 import Logo from './Logo';
-// import '../../node_modules/dayjs';
-// import * as dayjs from 'dayjs';
-// import 'dayjs/locale/ru'; // import locale
 
 interface SideNavBarElementProps {
   conversation: ChatPreview;
@@ -36,27 +32,6 @@ function SideNavBarElement({
   // TODO  настроить потом https://momentjs.com/ - есть новее библиотека
 
   const lastActivity = dateFormatter(conversation.lastMessage.date);
-  // let lastActivityToShow;
-  // const today = dayjs();
-
-  // // check  within the current year
-  // if (today.year() !== lastActivity.year()) {
-  //   lastActivityToShow = lastActivity.format('MMM DD, YYYY');
-
-  //   // check if within the current month
-  // } else if (today.month() !== lastActivity.month()) {
-  //   lastActivityToShow = lastActivity.format('MMM DD');
-
-  //   //  within the current week
-  // } else if (
-  //   today.date() - lastActivity.date() > 7 &&
-  //   today.date() !== lastActivity.date()
-  // ) {
-  //   lastActivityToShow = lastActivity.format('ddd');
-  // } else {
-  //   //  within the current day
-  //   lastActivityToShow = lastActivity.format('HH:mm');
-  // }
 
   const messageStatus = conversation.lastMessage.hasRead ? '\ue901' : '';
 

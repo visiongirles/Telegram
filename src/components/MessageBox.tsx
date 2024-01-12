@@ -45,10 +45,10 @@ function MessageBox({
           <div className={messageStatusClass}>{messageStatus}</div>
         </div>
       </div>
-      {contextMenuButtonVisibality &&
+      {/* {contextMenuButtonVisibality &&
         message.id === contextMenuButtonVisibality.chosenMessageId && (
           <MessageMenuButton messageId={message.id} coords={coords} />
-        )}
+        )} */}
     </>
   );
 }
