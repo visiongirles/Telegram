@@ -1,15 +1,6 @@
-// interface MessageBoxProps {
-//   date: Date;
-//   author: string;
-//   defaultSender: boolean;
-//   hasRead: boolean;
-//   content: string;
-
 import { Message, Point2D } from '../interfaces/interface';
 import getTimeFormatter from '../utils/getTimeFormatter';
-import { MessageMenuButton } from './MessageMenuButton';
 
-// }
 interface MessageBoxProps {
   message: Message;
   onContextMenu: (messageId: number, event: React.MouseEvent) => void;
@@ -17,12 +8,7 @@ interface MessageBoxProps {
   contextMenuButtonVisibality: { visibility: boolean; chosenMessageId: number };
 }
 
-function MessageBox({
-  message,
-  onContextMenu,
-  coords,
-  contextMenuButtonVisibality,
-}: MessageBoxProps) {
+function MessageBox({ message, onContextMenu }: MessageBoxProps) {
   const messageBoxStyle =
     message.isMine == true
       ? 'message-box right-message'
@@ -45,10 +31,6 @@ function MessageBox({
           <div className={messageStatusClass}>{messageStatus}</div>
         </div>
       </div>
-      {/* {contextMenuButtonVisibality &&
-        message.id === contextMenuButtonVisibality.chosenMessageId && (
-          <MessageMenuButton messageId={message.id} coords={coords} />
-        )} */}
     </>
   );
 }

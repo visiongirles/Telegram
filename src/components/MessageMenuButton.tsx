@@ -14,8 +14,9 @@ export const MessageMenuButton = forwardRef(function MessageMenuButton(
 ) {
   const dispatch = useMessangerDispatchContext();
 
-  function handleDeleteMessage(event: React.MouseEvent) {
-    console.log(event);
+  function handleDeleteMessage() {
+    // event: React.MouseEvent - as argument if needed
+    // console.log(event);
     dispatch({ type: MessangerAction.DeleteMessage, messageId: messageId });
   }
 
@@ -26,10 +27,7 @@ export const MessageMenuButton = forwardRef(function MessageMenuButton(
       style={{ top: coords.y, left: coords.x }}
     >
       <div className='button-edit'>Edit</div>
-      <div
-        className='button-delete'
-        onClick={(event) => handleDeleteMessage(event)}
-      >
+      <div className='button-delete' onClick={handleDeleteMessage}>
         Delete
       </div>
     </div>

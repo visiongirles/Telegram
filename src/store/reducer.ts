@@ -61,6 +61,7 @@ export function messangerReducer(state: Messanger, action: Action): Messanger {
         ...state,
         currentChat: { ...state.currentChat, messages: updatedMessages },
       };
+      console.log(updatedState);
       return updatedState;
     }
   }

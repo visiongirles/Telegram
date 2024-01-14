@@ -136,6 +136,11 @@ body {
   padding: 0.5em;
 }
 
+.selected {
+  background-color: gray;
+  color: white;
+}
+
 .preview-group {
   display: flex;
   flex-flow: column;

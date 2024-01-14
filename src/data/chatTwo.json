@@ -2,25 +2,25 @@
   {
     "id": 1,
     "date": 1703033343,
-    "author": "Kate",
+    "author": "Капитан Чеснок",
     "hasRead": true,
     "isMine": true,
-    "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque, enim!"
+    "content": " Аррр, товарищи! Кто сегодня готов к новым приключениям?"
   },
   {
     "id": 2,
     "date": 1702033343,
-    "author": "Yarik",
+    "author": "Сквайр Борщ",
     "hasRead": true,
     "isMine": false,
-    "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt tempore deleniti aspernatur esse velit nemo. Voluptas quidem, recusandae ratione molestias soluta aut cum suscipit corrupti, accusamus eveniet qui accusantium provident perferendis non minus vel maxime voluptates nihil? Accusantium nesciunt ipsum quo reiciendis molestias delectus similique laboriosam odio iste! Beatae, suscipit?"
+    "content": "Капитан, я потерял свой трезубец. Возможно, он прячется в пучине моего пальто."
   },
   {
     "id": 3,
     "date": 1702033348,
-    "author": "Yarik",
+    "author": "Капитан Чеснок",
     "hasRead": true,
     "isMine": false,
-    "content": "Lorem ipsum dolor sit. Sunt tempore deleniernatur esse velit nemo. Voluptas quidem, recusandae ratione molestias soluta aut cum suscipit corrupti, accusamus eveniet qui accusantium provident perferendis non minus vel maxime voluptates nihil? Accusantium nesciunt ipsum quo reiciendis molestias delectus similique laboriosam odio iste! Beatae, suscipit?"
+    "content": "Трезубец в пальто?! Какой чудной путь выбрал он для своих приключений!"
   }
 ]

@@ -1,22 +1,23 @@
 import MessageBox from './MessageBox';
-import MessageSendBox from './MessageSendBox';
+import MessageInputBox from './MessageInputBox';
 import TopNavBar from './TopNavBar';
 import { Chat, Point2D } from '../interfaces/interface';
 import { MessageMenuButton } from './MessageMenuButton';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const LEFT_BUTTON_CLICK = 0;
 interface ChatBoxProps {
   currentChat?: Chat;
 }
 
+// Context Menu Button options
 const initialContextMenuButtonOptions = {
   visibility: false,
   chosenMessageId: 0,
 };
 
 function ChatBox({ currentChat }: ChatBoxProps) {
-  const [coords, setCoords] = useState<Point2D>({ x: 0, y: 0 });
+  // Context Menu set-up: coordinates
+  const [coordinates, setCoordinates] = useState<Point2D>({ x: 0, y: 0 });
 
   const [contextMenuButtonOptions, setContextMenuButtonOptions] = useState(
     initialContextMenuButtonOptions
@@ -26,13 +27,12 @@ function ChatBox({ currentChat }: ChatBoxProps) {
 
   useEffect(() => {
     const onClickOutsideHandler = (event: MouseEvent) => {
+      // alternatively, we can catch the event.target with needed class and emit the event
       // const something = event.target as HTMLElement;
       // if (event.target.className.includes('button')) return;
-      // console.log(event);
       if (
         contextMenuButtonOptions.visibility &&
         !contextButtonRef.current?.contains(event.target as Node)
-        // event.button === LEFT_BUTTON_CLICK
       ) {
         setContextMenuButtonOptions(initialContextMenuButtonOptions);
       }
@@ -43,14 +43,17 @@ function ChatBox({ currentChat }: ChatBoxProps) {
     };
   }, [contextMenuButtonOptions]);
 
+  // check if currentChat !== udnerfined, also allows to decontruct messages
   if (!currentChat) return;
-  // function ChatBox({ messages }: ChatBoxProps) {
   const { messages } = currentChat;
 
+  // Context Menu handler
   function handleContextMenu(messageId: number, event: React.MouseEvent) {
+    // disable the default Context Menu
     event.preventDefault();
-    // console.log(event);
-    setCoords({ x: event.clientX, y: event.clientY });
+    // find the coordinates where the Custom Context Menu should appear
+    setCoordinates({ x: event.clientX, y: event.clientY });
+    // change Custom Context Menu state
     setContextMenuButtonOptions({
       visibility: true,
       chosenMessageId: messageId,
@@ -66,19 +69,20 @@ function ChatBox({ currentChat }: ChatBoxProps) {
             key={message.id}
             message={message}
             onContextMenu={handleContextMenu}
-            coords={coords}
+            coords={coordinates}
             contextMenuButtonVisibality={contextMenuButtonOptions}
           />
         ))}
+        {/* Context Menu Button */}
         {contextMenuButtonOptions.visibility && (
           <MessageMenuButton
             ref={contextButtonRef}
             messageId={contextMenuButtonOptions.chosenMessageId}
-            coords={coords}
+            coords={coordinates}
           />
         )}
       </div>
-      <MessageSendBox />
+      <MessageInputBox />
     </main>
   );
 }
