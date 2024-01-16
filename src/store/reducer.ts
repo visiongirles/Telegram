@@ -4,17 +4,25 @@ import { initialMessanger } from './initialMessanger';
 import chatsPreviewResponse from '../data/chatsPreviewResponse.json';
 import chatOneResponse from '../data/chatOne.json';
 import chatTwoResponse from '../data/chatTwo.json';
+import chatThreeResponse from '../data/chatThree.json';
+import chatFourResponse from '../data/chatFour.json';
+import chatFiveResponse from '../data/chatFive.json';
 
 // mock data response
 const chatOne = chatOneResponse;
 const chatTwo = chatTwoResponse;
+const chatThree = chatThreeResponse;
+const chatFour = chatFourResponse;
+const chatFive = chatFiveResponse;
 
 export function messangerReducer(state: Messanger, action: Action): Messanger {
+  // console.log(action);
+
   switch (action.type) {
     case MessangerAction.GetChatsPreview: {
       const updatedState = {
         ...state,
-        chatsPreview: getChats(),
+        chatsPreview: action.chatsPreview,
       };
       return updatedState;
     }
@@ -66,17 +74,42 @@ export function messangerReducer(state: Messanger, action: Action): Messanger {
     }
   }
 
-  const updatedMessanger = initialMessanger;
-  return updatedMessanger;
+  return initialMessanger;
 }
 
 // mock fetch() for chatsPreview (left side)
-function getChats() {
-  return chatsPreviewResponse;
-}
+// function getChats() {
+//   return chatsPreviewResponse;
+// }
 
 // mock fetch() for a particular chat messanges  (right side)
 function changeChat(chatId: number): Message[] {
-  const updatedMessages = chatId === 1 ? chatOne : chatTwo;
+  let updatedMessages: Message[] = [];
+  switch (chatId) {
+    case 1: {
+      updatedMessages = chatOne;
+      break;
+    }
+    case 2: {
+      updatedMessages = chatTwo;
+      break;
+    }
+    case 3: {
+      updatedMessages = chatThree;
+      break;
+    }
+    case 4: {
+      updatedMessages = chatFour;
+      break;
+    }
+    case 5: {
+      updatedMessages = chatFive;
+      break;
+    }
+    default: {
+      updatedMessages = chatOne;
+    }
+  }
+
   return updatedMessages;
 }

@@ -1,4 +1,4 @@
-import { Message } from '../interfaces/interface';
+import { ChatPreview, Message } from '../interfaces/interface';
 
 export enum MessangerAction {
   GetChatsPreview = 'get-chats',
@@ -24,10 +24,8 @@ const deleteChatAction = (chatId: number) =>
     chatId,
   } as const);
 
-//TODO: а кто будет следить какие id не заняты? сервер будет выдавать, но и на фронте надо врменный
-// т.к. сообщения которын ещё не ушли на сервер, не должны пропадать
-const getChatsAction = () =>
-  ({ type: MessangerAction.GetChatsPreview } as const);
+const getChatsAction = (chatsPreview: ChatPreview[]) =>
+  ({ type: MessangerAction.GetChatsPreview, chatsPreview } as const);
 
 const createNewChatAction = () =>
   ({
@@ -35,7 +33,6 @@ const createNewChatAction = () =>
   } as const);
 
 //  Messages related actions
-
 const typeMessageAction = (draftMessage: string) =>
   ({
     type: MessangerAction.TypeMessage,
@@ -48,7 +45,6 @@ const sendMessageAction = (message: Message) =>
     message,
   } as const);
 
-//TODO: content && id - т.к. остальное не меняется?
 const editMessageAction = (message: Message) =>
   ({
     type: MessangerAction.EditMessage,

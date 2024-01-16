@@ -1,13 +1,31 @@
+@media only screen and (min-height: 570px) and (min-width: 601px) {
+  :root {
+    --esg-width: 23.875rem;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  :root {
+    --right-column-width: 420px;
+    --chat-input-size: 3.375rem;
+    --chat-input-padding: 0.8125rem;
+    --chat-input-inner-padding: 0.5rem;
+  }
+}
+
 /* VARIABLES */
 
 :root {
   --messageHasRead: rgb(32, 228, 32);
   --messageHasNotRead: rgb(167, 167, 167);
-  --borderRadius: 0;
+  --zeroBorderRadius: 0;
+  --halfBorderRadius: 50%;
   --standartPadding: 0.5em;
+  --biggerPadding: 1em;
   --zeroPadding: 0;
   --standartBorderRadius: 1em;
   --smallBorderRadius: 0.5em;
+  --messages-container-width: 728px;
 }
 
 /* FONTS */
@@ -78,25 +96,27 @@ body {
 
 .main-container {
   /* TORESEARCH почему не работает 100vw */
+  margin: 0 auto;
+  max-width: 1682px;
   width: 100%;
   height: 100vh;
   display: flex;
-}
 
-.left {
-  display: flex;
-  flex-flow: column;
-  flex-grow: 3;
-  min-width: 100px;
-  max-width: 350px;
-  overflow: hidden;
-  width: 100%;
-}
+  .left {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 3;
+    min-width: 100px;
+    max-width: 350px;
+    overflow: hidden;
+    width: 100%;
+  }
 
-.right {
-  display: flex;
-  flex-grow: 1;
-  width: 100%;
+  .right {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+  }
 }
 
 /* || TopNavBar */
@@ -128,61 +148,63 @@ body {
   background-repeat: no-repeat;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: var(--halfBorderRadius);
 }
 
 /* || SideNavBarElement */
 .sidebarelement {
+  cursor: pointer;
   display: flex;
   flex-flow: row;
   width: 100%;
   background-color: white;
   justify-content: space-between;
   padding: var(--standartPadding);
+
+  .preview-group {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    padding: var(--zeroPadding) var(--standartPadding);
+  }
+
+  .status-group {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    /* justify-content: space-between; */
+  }
+
+  .user {
+    font-size: 1rem;
+    font-weight: bold;
+    flex-grow: 1;
+  }
+
+  .last-activity {
+    color: gray;
+    font-size: 0.85rem;
+    text-align: right;
+  }
+
+  .unread-messages {
+    font-size: 0.9rem;
+    text-align: right;
+    color: var(--messageHasRead);
+    padding-right: var(--standartPadding);
+  }
+
+  .preview {
+    color: gray;
+    font-size: 1rem;
+    text-align: left;
+  }
 }
 
 .selected {
-  background-color: rgb(218, 218, 218);
+  background-color: rgb(193, 193, 193);
   color: white;
-}
-
-.preview-group {
-  display: flex;
-  flex-flow: column;
-  flex-grow: 1;
-  padding: var(--zeroPadding) var(--standartPadding);
-}
-
-.status-group {
-  display: flex;
-  flex-flow: row;
-  align-items: flex-end;
-  /* justify-content: space-between; */
-}
-
-.user {
-  font-size: 1rem;
-  font-weight: bold;
-  flex-grow: 1;
-}
-
-.last-activity {
-  color: gray;
-  font-size: 0.85rem;
-  text-align: right;
-}
-
-.unread-messages {
-  font-size: 0.9rem;
-  text-align: right;
-  color: var(--messageHasRead);
-  padding-right: var(--standartPadding);
-}
-
-.preview {
-  color: gray;
-  font-size: 1rem;
-  text-align: left;
+  border-radius: var(--smallBorderRadius);
 }
 
 /* ChatBox */
@@ -193,18 +215,23 @@ body {
   background: transparent;
   height: 100vh;
   width: 100%;
+  margin: 0 auto;
+  // max-width: 600px;
+  max-width: min(100% - 1rem, var(--messages-container-width) - 1.625rem);
 }
 
 .chatbox {
   display: flex;
   width: 100%;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  height: 100%;
 }
 
 /* || MessageBox */
 
 .message-box {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   border: 1px solid lightgrey;
@@ -214,6 +241,29 @@ body {
   width: 60%;
   padding: var(--standartPadding);
   /* transform: translateY(1px) scaleX(1); */
+
+  .message-status {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 0;
+    margin-right: 0;
+    align-self: flex-end;
+    font-size: 0.9rem;
+    color: gray;
+    pointer-events: none;
+  }
+
+  .time-sent {
+    padding-right: var(--standartPadding);
+  }
+
+  .messageStatusNotRead {
+    color: var(--messageHasNotRead);
+  }
+
+  .messageStatusRead {
+    color: var(--messageHasRead);
+  }
 }
 
 .left-message {
@@ -224,44 +274,23 @@ body {
   align-self: flex-end;
 }
 
-.message-status {
-  display: flex;
-  flex-flow: row;
-  margin-bottom: 0;
-  margin-right: 0;
-  align-self: flex-end;
-  font-size: 0.9rem;
-  color: gray;
-  pointer-events: none;
-}
-
-.time-sent {
-  padding-right: var(--standartPadding);
-}
-
-.messageStatusNotRead {
-  color: var(--messageHasNotRead);
-}
-
-.messageStatusRead {
-  color: var(--messageHasRead);
-}
-
 /* || Message Input Box */
 .message-input-container {
   display: flex;
   width: 100%;
+  padding-bottom: var(--standartPadding);
 }
 
 .message-input {
   width: 100%;
-  padding: var(--standartPadding);
+  // padding: var(--biggerPadding);
+  padding: var(--biggerPadding);
   border: 1px solid lightgrey;
-  border-radius: var(--smallBorderRadius);
+  border-radius: var(--standartBorderRadius);
 }
 
 .message-input-button {
-  border-radius: 50%;
+  border-radius: var(---halfBorderRadius);
 }
 
 /* || MessageMenuButton */
@@ -271,7 +300,6 @@ body {
   flex-flow: column;
   position: fixed;
   z-index: 2;
-  /* min-width: 1rem; */
   border: 1px solid lightgrey;
   border-radius: var(--standartBorderRadius);
   background-color: white;

@@ -1,3 +1,5 @@
+import { useMessangerDispatchContext } from '../context/dispatchContext';
+
 // webSocketConnection - a main element which act from client side to ensure connection with server
 export const webSocketConnection = new WebSocket(
   'ws://localhost:3000/websockets'
@@ -5,13 +7,8 @@ export const webSocketConnection = new WebSocket(
 
 // when socket connection is open
 webSocketConnection.onopen = function (event) {
-  // function which is fired with certain interval {timeToSend} ms
-  // TODO: incorporate sendMessage const (below in file)
-  const timeToSend = 2000;
+  webSocketSend('Hello from client');
 
-  setInterval(() => {
-    webSocketConnection.send('Hello world!');
-  }, timeToSend);
   console.log('Соединение установлено.');
 };
 
@@ -30,13 +27,27 @@ webSocketConnection.onerror = function (error) {
   console.log('Ошибка ' + error.message);
 };
 
+// when socket connection received data
+// webSocketConnection.onmessage = function (event) {
+//   const dispatch = useMessangerDispatchContext();
+//   const messanger = JSON.parse(event.data);
+//   const chatsPreview = messanger.chatsPreview;
+//   dispatch({
+//     type: MessangerAction.GetChatsPreview,
+//     chatsPreview: chatsPreview,
+//   });
+// };
+
 // debouncing
 const webSocketSend = function (data) {
+  // timeout to repeat in case of websocket is not ready
+  const timeout = 1000;
+
   // readyState - true, если есть подключение
   if (!webSocketConnection.readyState) {
     setTimeout(function () {
       webSocketSend(data);
-    }, 100);
+    }, timeout);
   } else {
     webSocketConnection.send(data);
   }

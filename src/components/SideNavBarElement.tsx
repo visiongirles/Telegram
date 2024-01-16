@@ -8,7 +8,7 @@ interface SideNavBarElementProps {
   isSelected: boolean;
 }
 
-function SideNavBarElement({
+export default function SideNavBarElement({
   conversation,
   onConversationClick,
   isSelected,
@@ -27,9 +27,6 @@ function SideNavBarElement({
       lastMessagePreview.slice(startOfPreview, maxLengthOfPreviewAfterEditing) +
       textIfPreviewTooLong;
   }
-
-  // ВРЕМЕННО обрезала строку, чтоб отражался только день недели с помощью  .slice(0, 4)
-  // TODO  настроить потом https://momentjs.com/ - есть новее библиотека
 
   const lastActivity = dateFormatter(conversation.lastMessage.date);
 
@@ -54,5 +51,3 @@ function SideNavBarElement({
     </div>
   );
 }
-
-export default SideNavBarElement;

@@ -1,6 +1,5 @@
 import {
   ChatPreview,
-  Chat,
   Messanger,
   Profile,
   Settings,
@@ -31,11 +30,6 @@ const initialChatPreview: ChatPreview = {
     content: 'placeholder for content',
   },
 };
-
-// const initialChat: Chat = {
-//   chatId: 0,
-//   messages: [],
-// };
 
 export const initialMessanger: Messanger = {
   profile: initialProfile,

@@ -6,30 +6,32 @@ import { MessangerAction } from '../store/actions';
 interface MessageMenuButtonProps {
   messageId: number;
   coords: Point2D;
+  onClick: () => void;
 }
 
-export const MessageMenuButton = forwardRef(function MessageMenuButton(
-  { messageId, coords }: MessageMenuButtonProps,
-  ref: ForwardedRef<HTMLDivElement>
-) {
-  const dispatch = useMessangerDispatchContext();
+export const MessageMenuButton = forwardRef(
+  (
+    { messageId, coords, onClick }: MessageMenuButtonProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
+    const dispatch = useMessangerDispatchContext();
 
-  function handleDeleteMessage() {
-    // event: React.MouseEvent - as argument if needed
-    // console.log(event);
-    dispatch({ type: MessangerAction.DeleteMessage, messageId: messageId });
-  }
+    function handleDeleteMessage() {
+      dispatch({ type: MessangerAction.DeleteMessage, messageId: messageId });
+    }
 
-  return (
-    <div
-      ref={ref}
-      className='messageMenuButtonContainer'
-      style={{ top: coords.y, left: coords.x }}
-    >
-      <div className='button-edit'>Edit</div>
-      <div className='button-delete' onClick={handleDeleteMessage}>
-        Delete
+    return (
+      <div
+        ref={ref}
+        className='messageMenuButtonContainer'
+        style={{ top: coords.y, left: coords.x }}
+        onClick={onClick}
+      >
+        <div className='button-edit'>Edit</div>
+        <div className='button-delete' onClick={handleDeleteMessage}>
+          Delete
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);

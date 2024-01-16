@@ -4,10 +4,6 @@ import { MessangerAction } from '../store/actions';
 import dayjs from 'dayjs';
 import { Message } from '../interfaces/interface';
 
-// interface MessageSendBoxProps {
-//   chatId: number;
-// }
-
 export default function MessageInputBox() {
   const [text, setText] = useState('');
   const dispatch = useMessangerDispatchContext();
@@ -28,6 +24,8 @@ export default function MessageInputBox() {
       type: MessangerAction.SendMessage,
       message: updatedMessage,
     });
+
+    setText('');
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,19 +33,19 @@ export default function MessageInputBox() {
   }
 
   return (
-    <div className='sendbox'>
-      <form onSubmit={handleSubmit} action=''>
-        <label htmlFor='message'>Kate says:</label>
-        <input
-          type='text'
-          name='message'
-          id='message'
-          value={text}
-          onChange={handleChange}
-        />
-        <input type='submit' value='Submit' />
-        {/* <input type='reset' value='Reset' /> */}
-      </form>
-    </div>
+    <form className='message-input-container' onSubmit={handleSubmit} action=''>
+      <label htmlFor='message'></label>
+      <input
+        className='message-input'
+        type='text'
+        name='message'
+        id='message'
+        value={text}
+        onChange={handleChange}
+      />
+    </form>
   );
 }
+
+// эжем ответ от сервер
+// и не ресетить форму отправки, пока не получм подтверждение от сервера, что сообщение им получено
