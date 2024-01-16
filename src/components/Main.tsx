@@ -13,9 +13,10 @@ export default function Main() {
 
   useEffect(() => {
     webSocketConnection.onmessage = function (event) {
-      const messanger = JSON.parse(event.data);
+      console.log(event.data);
+      const chatsPreview: ChatPreview[] = JSON.parse(event.data);
 
-      const chatsPreview: ChatPreview[] = messanger.chatsPreview;
+      // const chatsPreview: ChatPreview[] = messanger.chatsPreview;
       const updatedState: Action = {
         type: MessangerAction.GetChatsPreview,
         chatsPreview: chatsPreview,
