@@ -3,16 +3,21 @@ import ChatBox from './ChatBox';
 import { useMessangerStateContext } from '../context/stateContext';
 import { webSocketConnection } from '../services/client';
 import { useEffect } from 'react';
-import { ChatPreview } from '../interfaces/interface';
+import { ChatPreview, Messanger } from '../interfaces/interface';
 import { Action, MessangerAction } from '../store/actions';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
 export default function Main() {
   // const state = useMessangerStateContext();
-  const state = useSelector((state) => state);
+  // const state = useSelector<RootState>((state) => state.messanger);
+  const state = useAppSelector((state) => state.messanger);
+
   // const dispatch = useMessangerDispatchContext();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     webSocketConnection.onmessage = function (event) {

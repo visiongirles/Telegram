@@ -4,11 +4,17 @@ import { MessangerAction } from '../store/actions';
 import { useMessangerStateContext } from '../context/stateContext';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { Messanger } from '../interfaces/interface';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
 function SideNavBar() {
-  const state = useSelector((state) => state);
+  const state = useAppSelector((state) => state.messanger);
+
+  // const state = useSelector<RootState>((state) => state.messanger);
   // const dispatch = useMessangerDispatchContext();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const chatsPreview = state.chatsPreview;
 
