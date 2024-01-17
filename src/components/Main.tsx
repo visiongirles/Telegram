@@ -14,7 +14,26 @@ export default function Main() {
   useEffect(() => {
     webSocketConnection.onmessage = function (event) {
       console.log(event.data);
-      const chatsPreview: ChatPreview[] = JSON.parse(event.data);
+      const rawChatsPreview = JSON.parse(event.data);
+      console.table(rawChatsPreview);
+
+      const chatsPreview = rawChatsPreview.map((rawChatPreview: any) => {
+        // const hasRead = 0;
+        const isMine = rawChatPreview.username === 'Kate';
+        const chatPreview: ChatPreview = {
+          chatId: rawChatPreview.chat_id,
+          photo: rawChatPreview.photo,
+          lastMessage: {
+            id: rawChatPreview.id,
+            date: rawChatPreview.date,
+            isMine: isMine,
+            content: rawChatPreview.txt,
+            hasRead: true,
+            author: rawChatPreview.username,
+          },
+        };
+        return chatPreview;
+      });
 
       // const chatsPreview: ChatPreview[] = messanger.chatsPreview;
       const updatedState: Action = {
