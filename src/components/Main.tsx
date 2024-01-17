@@ -6,10 +6,13 @@ import { useEffect } from 'react';
 import { ChatPreview } from '../interfaces/interface';
 import { Action, MessangerAction } from '../store/actions';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Main() {
-  const state = useMessangerStateContext();
-  const dispatch = useMessangerDispatchContext();
+  // const state = useMessangerStateContext();
+  const state = useSelector((state) => state);
+  // const dispatch = useMessangerDispatchContext();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     webSocketConnection.onmessage = function (event) {

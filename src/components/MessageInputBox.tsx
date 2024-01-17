@@ -3,10 +3,12 @@ import { useMessangerDispatchContext } from '../context/dispatchContext';
 import { MessangerAction } from '../store/actions';
 import dayjs from 'dayjs';
 import { Message } from '../interfaces/interface';
+import { useDispatch } from 'react-redux';
 
 export default function MessageInputBox() {
   const [text, setText] = useState('');
-  const dispatch = useMessangerDispatchContext();
+  // const dispatch = useMessangerDispatchContext();
+  const dispatch = useDispatch();
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();

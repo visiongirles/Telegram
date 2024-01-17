@@ -2,6 +2,7 @@ import { ForwardedRef, forwardRef } from 'react';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
 import { Point2D } from '../interfaces/interface';
 import { MessangerAction } from '../store/actions';
+import { useDispatch } from 'react-redux';
 
 interface MessageMenuButtonProps {
   messageId: number;
@@ -14,7 +15,8 @@ export const MessageMenuButton = forwardRef(
     { messageId, coords, onClick }: MessageMenuButtonProps,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
-    const dispatch = useMessangerDispatchContext();
+    // const dispatch = useMessangerDispatchContext();
+    const dispatch = useDispatch();
 
     function handleDeleteMessage() {
       dispatch({ type: MessangerAction.DeleteMessage, messageId: messageId });

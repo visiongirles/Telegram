@@ -1,11 +1,17 @@
 import Main from './components/Main';
 import { StateProvider } from './components/StateProvider';
 
+import { Provider } from 'react-redux';
+
+import { store } from './store/store';
+
 function App() {
   return (
-    <StateProvider>
+    // <StateProvider>
+    <Provider store={store}>
       <Main />
-    </StateProvider>
+    </Provider>
+    // </StateProvider>
   );
 }
 

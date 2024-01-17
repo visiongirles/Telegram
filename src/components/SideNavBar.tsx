@@ -3,10 +3,12 @@ import SideNavBarElement from './SideNavBarElement';
 import { MessangerAction } from '../store/actions';
 import { useMessangerStateContext } from '../context/stateContext';
 import { useMessangerDispatchContext } from '../context/dispatchContext';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SideNavBar() {
-  const state = useMessangerStateContext();
-  const dispatch = useMessangerDispatchContext();
+  const state = useSelector((state) => state);
+  // const dispatch = useMessangerDispatchContext();
+  const dispatch = useDispatch();
 
   const chatsPreview = state.chatsPreview;
 
