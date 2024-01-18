@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import { useMessangerDispatchContext } from '../context/dispatchContext';
-import { MessangerAction } from '../store/actions';
-import dayjs from 'dayjs';
-import { Message } from '../interfaces/interface';
-import { useDispatch } from 'react-redux';
+import { MessangerAction } from '../reducers/actions';
+import { Message } from '../interfaces';
 import { useAppDispatch } from '../hooks/hooks';
+import { createNewDate } from '../utils/createNewDate';
 
 export default function MessageInputBox() {
   const [text, setText] = useState('');
-  // const dispatch = useMessangerDispatchContext();
-  // const dispatch = useDispatch();
   const dispatch = useAppDispatch();
 
   function handleSubmit(event: React.FormEvent) {
@@ -17,7 +13,7 @@ export default function MessageInputBox() {
 
     const updatedMessage: Message = {
       id: Math.random(),
-      date: dayjs().millisecond(),
+      date: createNewDate(),
       author: 'Kate',
       hasRead: false,
       isMine: true,
@@ -51,5 +47,6 @@ export default function MessageInputBox() {
   );
 }
 
-// эжем ответ от сервер
+// на тему, как будет отрисовывать новые сообщения
+// ждем ответ от сервер
 // и не ресетить форму отправки, пока не получм подтверждение от сервера, что сообщение им получено

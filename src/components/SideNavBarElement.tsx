@@ -1,4 +1,4 @@
-import { ChatPreview } from '../interfaces/interface';
+import { ChatPreview } from '../interfaces';
 import dateFormatter from '../utils/dateFormatter';
 import Logo from './Logo';
 

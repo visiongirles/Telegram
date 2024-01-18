@@ -1,5 +1,5 @@
 import { Dispatch, createContext, useContext } from 'react';
-import { Action } from '../store/actions';
+import { Action } from '../reducers/actions';
 
 // react context hook for DISPATCH
 export const MessangerDispatchContext = createContext<Dispatch<Action>>(

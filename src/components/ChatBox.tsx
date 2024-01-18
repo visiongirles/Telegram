@@ -1,7 +1,7 @@
 import MessageBox from './MessageBox';
 import MessageInputBox from './MessageInputBox';
 import TopNavBar from './TopNavBar';
-import { Chat, Point2D } from '../interfaces/interface';
+import { Chat, Point2D } from '../interfaces/';
 import { MessageMenuButton } from './MessageMenuButton';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -26,9 +26,6 @@ function ChatBox({ currentChat }: ChatBoxProps) {
   const contextButtonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // alternatively, we can catch the event.target with needed class and emit the event
-    // const something = event.target as HTMLElement;
-    // if (event.target.className.includes('button')) return;
     const onClickOutsideHandler = (event: MouseEvent) => {
       if (
         contextMenuButtonOptions.visibility &&

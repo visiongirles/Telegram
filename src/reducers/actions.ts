@@ -1,4 +1,4 @@
-import { ChatPreview, Message } from '../interfaces/interface';
+import { ChatPreview, Message } from '../interfaces';
 
 export enum MessangerAction {
   GetChatsPreview = 'get-chats',

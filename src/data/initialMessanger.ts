@@ -4,7 +4,7 @@ import {
   Profile,
   Settings,
   Status,
-} from '../interfaces/interface';
+} from '../interfaces/messanger';
 
 // initial state settings: initialProfile, initialSettings, initialChatPreview, initialMessanger
 const initialProfile: Profile = {

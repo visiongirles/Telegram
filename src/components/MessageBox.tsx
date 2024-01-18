@@ -1,4 +1,4 @@
-import { Message, Point2D } from '../interfaces/interface';
+import { Message, Point2D } from '../interfaces';
 import getTimeFormatter from '../utils/getTimeFormatter';
 
 interface MessageBoxProps {

@@ -1,7 +1,6 @@
-import { Message, Messanger } from '../interfaces/interface';
+import { Message, Messanger } from '../interfaces/messanger';
 import { Action, MessangerAction } from './actions';
-import { initialMessanger } from './initialMessanger';
-import chatsPreviewResponse from '../data/chatsPreviewResponse.json';
+import { initialMessanger } from '../data/initialMessanger';
 import chatOneResponse from '../data/chatOne.json';
 import chatTwoResponse from '../data/chatTwo.json';
 import chatThreeResponse from '../data/chatThree.json';

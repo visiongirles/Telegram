@@ -3,18 +3,9 @@
 // ещё Альтернатива #1:  Да, берешь RemoteData и кладешь в стейт. не делать имитацию, а просто сразу в стейт. см №3
 // В реакте обычно у тебя будет #2 пакет для выполнения запросов и #3 пакет инкапсулирующий состояние.
 
-//  типа
+// типы
 // состояние
 // то, что вернется сервер
-
-export interface Message {
-  id: number;
-  date: number;
-  author: string;
-  hasRead: boolean;
-  isMine: boolean;
-  content: string;
-}
 
 export interface Profile {
   username: string;
@@ -30,6 +21,15 @@ export interface Settings {
 export enum Status {
   Online = 'online',
   Offline = 'offline',
+}
+
+export interface Message {
+  id: number;
+  date: number;
+  author: string;
+  hasRead: boolean;
+  isMine: boolean;
+  content: string;
 }
 
 export interface ChatPreview {
@@ -49,9 +49,4 @@ export interface Messanger {
   settings: Settings;
   chatsPreview: ChatPreview[];
   currentChat?: Chat;
-}
-
-export interface Point2D {
-  x: number;
-  y: number;
 }
