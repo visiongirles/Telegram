@@ -1,6 +1,7 @@
 // import { ChatPreview } from '../interfaces';
-import { PayloadAction } from 'redux';
+import { createSlice, PayloadAction, UnknownAction } from '@reduxjs/toolkit';
 import { Message } from '../interfaces';
+import type { RootState } from '../store';
 
 interface ChatPreview {
   chatId: number;
@@ -23,28 +24,38 @@ const initialChatsPreview: ChatPreview = {
   },
 };
 
+export default function getChatsPreview(
+  state = initialChatsPreview,
+  action: UnknownAction
+) {}
+
 export const chatsPreviewSlice = createSlice({
   name: 'chatsPreview',
   // `createSlice` will infer the state type from the `initialState` argument
-  initialChatPreview: initialChatsPreview,
+  initialChatsPreview,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getChatsPreview: (state, action: PayloadAction<number>) => {
-      state = action.payload;
+    getChatsPreview(
+      state,
+      action: PayloadAction<{
+        chatId: number;
+        photo: string;
+        lastMessage: Message;
+        draftMessage?: string;
+      }>
+    ) {
+      const { chatId, photo, lastMessage, draftMessage } = action.payload;
+      state.chatId = chatId;
+      state.photo = photo;
+      state.lastMessage = lastMessage;
+      state.draftMessage = draftMessage;
     },
   },
 });
 
-function createSlice(arg0: {
-  name: string;
-  // `createSlice` will infer the state type from the `initialState` argument
-  initialState: any;
-  reducers: {
-    increment: (state: any) => void;
-    decrement: (state: any) => void;
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state: any, action: PayloadAction<number>) => void;
-  };
-}) {
-  throw new Error('Function not implemented.');
-}
+// `createSlice` automatically generated action creators with these names.
+// export them as named exports from this "slice" file
+export const { getChatsPreview } = chatsPreviewSlice.actions;
+
+// Export the slice reducer as the default export
+export default chatsPreviewSlice.reducer;
