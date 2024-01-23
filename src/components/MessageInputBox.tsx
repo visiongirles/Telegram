@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessangerAction } from '../reducers/actions';
+import { MessangerAction, sendMessageAction } from '../reducers/actions';
 import { Message } from '../interfaces';
 import { useAppDispatch } from '../hooks/hooks';
 import { createNewDate } from '../utils/createNewDate';
@@ -20,10 +20,7 @@ export default function MessageInputBox() {
       content: text,
     };
 
-    dispatch({
-      type: MessangerAction.SendMessage,
-      message: updatedMessage,
-    });
+    dispatch(sendMessageAction(updatedMessage));
 
     setText('');
   }

@@ -12,46 +12,46 @@ export enum MessangerAction {
 }
 
 // CHAT related actions
-const changeCurrentChatAction = (updatedChatId: number) =>
+export const changeCurrentChatAction = (updatedChatId: number) =>
   ({
     type: MessangerAction.ChangeCurrentChat,
     updatedChatId,
   } as const);
 
-const deleteChatAction = (chatId: number) =>
+export const deleteChatAction = (chatId: number) =>
   ({
     type: MessangerAction.DeleteChat,
     chatId,
   } as const);
 
-const getChatsAction = (chatsPreview: ChatPreview[]) =>
+export const getChatsAction = (chatsPreview: ChatPreview[]) =>
   ({ type: MessangerAction.GetChatsPreview, chatsPreview } as const);
 
-const createNewChatAction = () =>
+export const createNewChatAction = () =>
   ({
     type: MessangerAction.CreateNewChat,
   } as const);
 
 //  Messages related actions
-const typeMessageAction = (draftMessage: string) =>
+export const typeMessageAction = (draftMessage: string) =>
   ({
     type: MessangerAction.TypeMessage,
     draftMessage,
   } as const);
 
-const sendMessageAction = (message: Message) =>
+export const sendMessageAction = (message: Message) =>
   ({
     type: MessangerAction.SendMessage,
     message,
   } as const);
 
-const editMessageAction = (message: Message) =>
+export const editMessageAction = (message: Message) =>
   ({
     type: MessangerAction.EditMessage,
     message,
   } as const);
 
-const deleteMessageAction = (messageId: number) =>
+export const deleteMessageAction = (messageId: number) =>
   ({
     type: MessangerAction.DeleteMessage,
     messageId,

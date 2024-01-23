@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { Action, MessangerAction } from '../reducers/actions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
+import { getChatsAction } from '../reducers/';
 
 export default function Main() {
   const state = useAppSelector((state) => state.messanger);
@@ -21,18 +22,18 @@ export default function Main() {
       const chatsPreview = rawChatsPreview.map(mapChatsPreview);
 
       //Prepare Action
-      const updatedState: Action = {
-        type: MessangerAction.GetChatsPreview,
-        chatsPreview: chatsPreview,
-      };
+      // const updatedState: Action = {
+      //   type: MessangerAction.GetChatsPreview,
+      //   chatsPreview: chatsPreview,
+      // };
 
       // Update state
-      dispatch(updatedState);
+      dispatch(getChatsAction(chatsPreview));
 
       // DEBUG
       console.log(event.data);
       console.table(rawChatsPreview);
-      console.log(updatedState);
+      // console.log(updatedState);
     };
     return;
   }, []);

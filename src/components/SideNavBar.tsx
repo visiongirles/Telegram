@@ -1,20 +1,18 @@
 import TopNavBar from './TopNavBar';
 import SideNavBarElement from './SideNavBarElement';
-import { MessangerAction } from '../reducers/actions';
+import { changeCurrentChatAction } from '../reducers/actions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { ChatPreview } from '../interfaces';
 
 function SideNavBar() {
   const state = useAppSelector((state) => state.messanger);
 
   const dispatch = useAppDispatch();
 
-  const chatsPreview = state.chatsPreview;
+  const chatsPreview: ChatPreview[] = state.chatsPreview;
 
   function onConversationClick(chatId: number) {
-    dispatch({
-      type: MessangerAction.ChangeCurrentChat,
-      updatedChatId: chatId,
-    });
+    dispatch(changeCurrentChatAction(chatId));
   }
 
   return (
