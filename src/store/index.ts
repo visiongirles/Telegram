@@ -1,8 +1,12 @@
 // import { createStore } from 'redux';
 // import { rootReducer } from '../reducers';
 import { configureStore } from '@reduxjs/toolkit';
+import chatPreviewReducer from '../features/chatsPreviewSlice';
+import currentChatReducer from '../features/currentChatSlice';
+import profileReducer from '../features/profileSlice';
+import settingsReducer from '../features/settingsSlice';
 
-import { messangerReducer } from '../reducers/messangerReducer';
+// import { messangerReducer } from '../reducers/messangerReducer';
 
 // export const store = createStore(rootReducer);
 
@@ -21,7 +25,10 @@ import { messangerReducer } from '../reducers/messangerReducer';
 export const store = configureStore({
   // Automatically calls `combineReducers`
   reducer: {
-    messanger: messangerReducer,
+    chatsPreview: chatPreviewReducer,
+    currentChat: currentChatReducer,
+    profile: profileReducer,
+    settings: settingsReducer,
   },
 });
 

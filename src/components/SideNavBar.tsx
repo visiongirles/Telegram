@@ -5,11 +5,12 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { ChatPreview } from '../interfaces';
 
 function SideNavBar() {
-  const state = useAppSelector((state) => state.messanger);
+  const chatsPreview: ChatPreview[] = useAppSelector(
+    (state) => state.chatsPreview
+  );
+  const currentChat = useAppSelector((state) => state.currentChat);
 
   const dispatch = useAppDispatch();
-
-  const chatsPreview: ChatPreview[] = state.chatsPreview;
 
   function onConversationClick(chatId: number) {
     dispatch(changeCurrentChatAction(chatId));
@@ -24,7 +25,8 @@ function SideNavBar() {
             key={chatPreview.chatId}
             conversation={chatPreview}
             onConversationClick={() => onConversationClick(chatPreview.chatId)}
-            isSelected={chatPreview.chatId === state.currentChat?.chatId}
+            isSelected={chatPreview.chatId === currentChat?.chatId}
+            // isSelected={false}
           />
         ))}
       </div>
