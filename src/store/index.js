@@ -23,6 +23,7 @@ import settingsReducer from '../features/settingsSlice.js';
 // Automatically adds the thunk middleware and the Redux DevTools extension
 export const store = configureStore({
   // Automatically calls `combineReducers`
+
   reducer: {
     chatsPreview: chatPreviewReducer,
     currentChat: currentChatReducer,

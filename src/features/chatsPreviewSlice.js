@@ -45,6 +45,9 @@ export const chatsPreviewSlice = createSlice({
   initialChatsPreview,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
+    // getChatsPreview(state) {
+    //   state;
+    // },
     getChatsPreview(state, action) {
       const { chatId, photo, lastMessage, draftMessage } = action.payload;
       state.chatId = chatId;
