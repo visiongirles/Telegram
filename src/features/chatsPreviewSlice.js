@@ -1,15 +1,12 @@
 // import { ChatPreview } from '../interfaces';
-import { createSlice, PayloadAction, UnknownAction } from '@reduxjs/toolkit';
-import { Message } from '../interfaces';
-import type { RootState } from '../store';
-import { MessangerAction } from '../reducers/actions';
+import { createSlice } from '@reduxjs/toolkit';
 
-interface ChatPreview {
-  chatId: number;
-  photo: string;
-  lastMessage: Message;
-  draftMessage?: string;
-}
+// interface ChatPreview {
+//   chatId: number;
+//   photo: string;
+//   lastMessage: Message;
+//   draftMessage?: string;
+// }
 
 const initialChatsPreview = {
   chatId: 0,
@@ -23,7 +20,7 @@ const initialChatsPreview = {
     isMine: false,
     content: 'placeholder for content',
   },
-} as ChatPreview;
+};
 
 // function getChatsPreview(
 //   state = initialChatsPreview,
@@ -48,15 +45,7 @@ export const chatsPreviewSlice = createSlice({
   initialChatsPreview,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getChatsPreview(
-      state,
-      action: PayloadAction<{
-        chatId: number;
-        photo: string;
-        lastMessage: Message;
-        draftMessage?: string;
-      }>
-    ) {
+    getChatsPreview(state, action) {
       const { chatId, photo, lastMessage, draftMessage } = action.payload;
       state.chatId = chatId;
       state.photo = photo;
