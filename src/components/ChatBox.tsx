@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface ChatBoxProps {
   currentChat?: Chat;
+  // currentChat: Chat | null;
 }
 
 // Context Menu Button options
@@ -41,7 +42,7 @@ function ChatBox({ currentChat }: ChatBoxProps) {
   }, [contextMenuButtonOptions]);
 
   // check if currentChat !== udnerfined, also allows to decontruct messages
-  if (!currentChat) return;
+  if (!currentChat?.chatId || !currentChat.messages) return;
 
   const { messages } = currentChat;
 

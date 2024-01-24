@@ -1,8 +1,10 @@
 import TopNavBar from './TopNavBar';
 import SideNavBarElement from './SideNavBarElement';
-import { changeCurrentChatAction } from '../reducers/actions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { ChatPreview } from '../interfaces';
+import { getCurrentChat } from '../features/currentChatSlice';
+import { useEffect } from 'react';
+import { webSocketConnection } from '../services/client';
 
 function SideNavBar() {
   const chatsPreview: ChatPreview[] = useAppSelector(
@@ -12,8 +14,27 @@ function SideNavBar() {
 
   const dispatch = useAppDispatch();
 
+  // useEffect(() => {
+  //   // Socket connection - on 'message' event handler
+  //   webSocketConnection.onmessage = function (event) {
+  //     // parse data from server
+  //     const rawChatsPreview = JSON.parse(event.data);
+
+  //     // prepare ChatPreviews for UI
+  //     const chatsPreview = rawChatsPreview.map(mapChatsPreview);
+
+  //     // Update state
+  //     dispatch(getChatsPreview(chatsPreview));
+
+  //     // DEBUG
+  //     console.log(event.data);
+  //     console.table(rawChatsPreview);
+  //   };
+  //   return;
+  // }, [currentChat]);
+
   function onConversationClick(chatId: number) {
-    dispatch(changeCurrentChatAction(chatId));
+    dispatch(getCurrentChat(chatId));
   }
 
   return (
@@ -26,7 +47,6 @@ function SideNavBar() {
             conversation={chatPreview}
             onConversationClick={() => onConversationClick(chatPreview.chatId)}
             isSelected={chatPreview.chatId === currentChat?.chatId}
-            // isSelected={false}
           />
         ))}
       </div>

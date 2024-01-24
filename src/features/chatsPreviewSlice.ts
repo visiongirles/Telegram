@@ -1,8 +1,5 @@
-// import { ChatPreview } from '../interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Message } from '../interfaces';
-// import type { RootState } from '../store';
-// import { MessangerAction } from '../reducers/actions';
 
 interface ChatPreview {
   chatId: number;
@@ -27,23 +24,6 @@ const initialChatsPreview = [
   },
 ] as ChatPreview[];
 
-// function getChatsPreview(
-//   state = initialChatsPreview,
-//   action: UnknownAction
-// ) {
-//   switch (action.type) {
-//     case MessangerAction.GetChatsPreview: {
-//       const updatedState = {
-//         ...state,
-//         chatId: action.chatId,
-//         photo: action.photo, // from server
-//         lastMessage: action.lastMessage, // from server
-//       };
-//       return updatedState;
-//     }
-//   }
-// }
-
 export const chatsPreviewSlice = createSlice({
   name: 'chatsPreview',
   // `createSlice` will infer the state type from the `initialState` argument
@@ -64,10 +44,6 @@ export const chatsPreviewSlice = createSlice({
       >
     ) {
       return action.payload;
-      // state.chatId = chatId;
-      // state.photo = photo;
-      // state.lastMessage = lastMessage;
-      // state.draftMessage = draftMessage;
     },
   },
 });
