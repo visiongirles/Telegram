@@ -1,5 +1,30 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Chat } from '../interfaces';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { webSocketSend } from '../services/client';
+import { Chat, Message, MessageForServer } from '../interfaces';
+
+// First, create the thunk
+export const fetchChatById = createAsyncThunk(
+  'fetchChatById',
+  async (chatId: number) => {
+    console.log('FETCHID', chatId);
+    // socket -> send message
+    const data = JSON.stringify({ type: 'get-chat-by-id', chatId });
+    webSocketSend(data); // TODO: Отправка запроса на сервер -> нужно обновить массив запросов
+
+    // ТУТ НИЖЕ должен возратиться ответ!
+    return chatId;
+  }
+);
+
+export const sendMessage = createAsyncThunk(
+  'sendMessage',
+  async (message: MessageForServer, { getState }) => {
+    const data = JSON.stringify({ type: 'create-new-message', message });
+    webSocketSend(data);
+    // TODO: можно ли вернуться текущий стейт?
+    return getState;
+  }
+);
 
 const initialCurrentChat = { chatId: undefined, messages: undefined } as Chat;
 
@@ -11,45 +36,40 @@ export const currentChatSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     getCurrentChat(state, action: PayloadAction<number>) {
       state.chatId = action.payload;
+      state.messages = [];
     },
+    setCurrentChat(state, action: PayloadAction<Message[]>) {
+      state.messages = action.payload;
+    },
+
+    deleteMessage(state, action: PayloadAction<number>) {
+      const updatedMessages = state.messages?.filter(
+        (item) => item.id !== action.payload
+      );
+      state.messages = updatedMessages;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchChatById.pending, (state) => {
+      state.messages = [];
+    });
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchChatById.fulfilled, (state, action) => {
+      state.chatId = action.payload;
+
+      // Add user to the state array
+      state.messages = [];
+    });
+    builder.addCase(sendMessage.fulfilled, (state, action) => {
+      return state;
+    });
   },
 });
 
 // `createSlice` automatically generated action creators with these names.
 // export them as named exports from this "slice" file
-export const { getCurrentChat } = currentChatSlice.actions;
+export const { getCurrentChat, setCurrentChat, deleteMessage } =
+  currentChatSlice.actions;
 
 // Export the slice reducer as the default export
 export default currentChatSlice.reducer;
-
-// const initialCurrentChat = {
-//   chatId: 1,
-//   messages: [
-//     {
-//       id: 1,
-//       date: 1702033343,
-//       author: 'Сутулая собака',
-//       hasRead: true,
-//       isMine: false,
-//       content: 'Привет, любители мурлыкающих созданий! Как ваш кот сегодня?',
-//     },
-//     {
-//       id: 2,
-//       date: 1703033343,
-//       author: 'Kate',
-//       hasRead: false,
-//       isMine: true,
-//       content:
-//         'Он опять пытался поймать свой хвост. Кажется, это его новое хобби.',
-//     },
-//     {
-//       id: 3,
-//       date: 1704033343,
-//       author: 'Сутулая собака',
-//       hasRead: false,
-//       isMine: true,
-//       content:
-//         'Мой кот вчера залез на верхнюю полку и теперь не может спуститься. Стоит ли мне купить ему карту?',
-//     },
-//   ],
-// };

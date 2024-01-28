@@ -5,7 +5,7 @@ export const webSocketConnection = new WebSocket(
 
 // when socket connection is open
 webSocketConnection.onopen = function (event) {
-  const requestObject = { type: 'get-chats-preview' };
+  const requestObject = { id: 1, type: 'get-chats-preview' };
   const requestString = JSON.stringify(requestObject);
   webSocketSend(requestString);
 

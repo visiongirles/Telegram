@@ -89,7 +89,7 @@ function ChatBox({ currentChat }: ChatBoxProps) {
           />
         )}
       </div>
-      <MessageInputBox />
+      <MessageInputBox chatId={currentChat.chatId} />
     </main>
   );
 }

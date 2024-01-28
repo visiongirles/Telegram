@@ -1,5 +1,3 @@
-// import { createStore } from 'redux';
-// import { rootReducer } from '../reducers';
 import { configureStore } from '@reduxjs/toolkit';
 import chatPreviewReducer from '../features/chatsPreviewSlice';
 import currentChatReducer from '../features/currentChatSlice';

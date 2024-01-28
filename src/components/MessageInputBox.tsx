@@ -1,24 +1,28 @@
 import { useState } from 'react';
-import { MessangerAction, sendMessageAction } from '../reducers/actions';
-import { Message } from '../interfaces';
-import { useAppDispatch } from '../hooks/hooks';
-import { createNewDate } from '../utils/createNewDate';
+import { sendMessageAction } from '../reducers/actions';
+import { useAppDispatch } from '../hooks';
+import { mapMessageForServer } from '../utils/mapMessageForServer';
 
-export default function MessageInputBox() {
+interface MessageInputBoxProps {
+  chatId: number;
+  // currentChat: Chat | null;
+}
+
+export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
   const [text, setText] = useState('');
   const dispatch = useAppDispatch();
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const updatedMessage: Message = {
-      id: Math.random(),
-      date: createNewDate(),
-      author: 'Kate',
-      hasRead: false,
-      isMine: true,
-      content: text,
-    };
+    const updatedMessage = mapMessageForServer(text, chatId);
+    // {
+    //   date: ,
+    //   author: 'Kate',
+    //   hasRead: false,
+    //   isMine: true,
+    //   content: text,
+    // };
 
     dispatch(sendMessageAction(updatedMessage));
 

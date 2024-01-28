@@ -31,7 +31,7 @@ export const chatsPreviewSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     getChatsPreview(
-      state,
+      _,
       action: PayloadAction<
         [
           {
