@@ -83,6 +83,7 @@ function ChatBox({ currentChat }: ChatBoxProps) {
         {contextMenuButtonOptions.visibility && (
           <MessageMenuButton
             ref={contextButtonRef}
+            chatId={currentChat?.chatId}
             messageId={contextMenuButtonOptions.chosenMessageId}
             coords={coords}
             onClick={handleCloseMenu}

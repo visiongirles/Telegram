@@ -1,6 +1,7 @@
 export * from './appDispatch';
 export * from './chat';
 export * from './chatPreview';
+export * from './deletedMessage';
 export * from './message';
 export * from './messageForServer';
 export * from './messageFromServer';

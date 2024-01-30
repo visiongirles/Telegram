@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
 import { getChatsPreview } from '../features/chatsPreviewSlice';
-import { addMessage, setCurrentChat } from '../features/currentChatSlice';
+import { addMessage, deleteMessage, setCurrentChat } from '../features/currentChatSlice';
 import { mapCurrentChat } from '../utils/mapCurrentChat';
 import { mapNewMessage } from '../utils/mapNewMessage';
 import { MessageFromServer } from '../interfaces';
@@ -53,10 +53,9 @@ export default function Main() {
           break;
         }
         case 'delete-message-by-id': {
-          console.log('CREATE-NEW-MESSAGE', responseData.message);
-          const rawMessage: MessageFromServer = responseData.message;
-          const mappedMessage = mapNewMessage(rawMessage);
-          dispatch(addMessage(mappedMessage));
+          console.log('DELETE-NEW-MESSAGE', responseData.deletedMessage);
+          const deletedMessage = responseData.deletedMessage;
+          dispatch(deleteMessage(deletedMessage));
           // console.log('Я к Вам  с сервера с новыми сообщениями');
           // console.table(rawMessages);
 

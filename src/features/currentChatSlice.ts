@@ -1,6 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { webSocketSend } from '../services/client';
-import { Chat, Message, MessageForServer } from '../interfaces';
+import { Chat, Message, MessageForServer, DeletedMessage } from '../interfaces';
+
+
 
 // First, create the thunk
 export const fetchChatById = createAsyncThunk(
@@ -20,6 +22,17 @@ export const sendMessage = createAsyncThunk(
   'sendMessage',
   async (message: MessageForServer) => {
     const data = JSON.stringify({ type: 'create-new-message', message });
+    webSocketSend(data);
+    // TODO: можно ли вернуться текущий стейт?
+  }
+);
+
+
+export const deleteMessageById = createAsyncThunk(
+  'deleteMessageById',
+  async (chatId, messageId) => {
+    
+    const data = JSON.stringify({ type: 'delete-message-by-id', chatId, messageId });
     webSocketSend(data);
     // TODO: можно ли вернуться текущий стейт?
   }
@@ -45,9 +58,10 @@ export const currentChatSlice = createSlice({
             state.messages?.push(action.payload);
     },
 
-    deleteMessage(state, action: PayloadAction<number>) {
+    deleteMessage(state, action: PayloadAction<DeletedMessage>) {
+      if (state.chatId !== action.payload.chatId) return state;
       const updatedMessages = state.messages?.filter(
-        (item) => item.id !== action.payload
+        (item) => item.id !== action.payload.messageId
       );
       state.messages = updatedMessages;
     },
