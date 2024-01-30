@@ -10,7 +10,7 @@ interface MessageBoxProps {
 
 function MessageBox({ message, onContextMenu }: MessageBoxProps) {
   const messageBoxStyle =
-    message.isMine == true
+    message.isMine
       ? 'message-box right-message'
       : 'message-box left-message';
 
@@ -18,7 +18,7 @@ function MessageBox({ message, onContextMenu }: MessageBoxProps) {
   const messageStatusClass = message.hasRead
     ? 'messageStatusRead tgico'
     : 'messageStatusNotRead tgico';
-  const timeSent = getTimeFormatter(message.date);
+  const timeSent = getTimeFormatter(message.created_at);
   return (
     <>
       <div

@@ -1,4 +1,4 @@
-import { Message, Messanger } from '../interfaces/messanger';
+import { Message, Messanger } from '../interfaces/';
 import { Action, MessangerAction } from './actions';
 import { initialMessanger } from '../data/initialMessanger';
 import chatOneResponse from '../data/chatOne.json';

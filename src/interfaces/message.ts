@@ -1,6 +1,6 @@
 export interface Message {
   id: number;
-  date: number;
+  created_at: string;
   author: string;
   hasRead: boolean;
   isMine: boolean;

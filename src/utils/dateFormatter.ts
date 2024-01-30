@@ -1,9 +1,10 @@
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/ru'; // import locale
 
-export default function dateFormatter(date: number): string {
+// TODO: проверить правильно ли работает в переменной lastActivity объект и метод  dayjs(date)
+export default function dateFormatter(date: string): string {
   const today = dayjs();
-  const lastActivity = dayjs.unix(date);
+  const lastActivity = dayjs(date);
   let lastActivityToShow;
 
   // check  within the current year

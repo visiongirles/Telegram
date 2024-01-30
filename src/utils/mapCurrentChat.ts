@@ -1,15 +1,15 @@
 import { Message } from '../interfaces';
 
 export function mapCurrentChat(message: any) {
-  const hasRead = message.status === 2;
+  const hasRead = message.status === 'hasRead';
   const isMine = message.username === 'Kate';
 
   const mappedMessage: Message = {
     id: message.id,
-    date: message.date,
+    created_at: message.created_at,
     author: message.author_id,
-    hasRead: hasRead,
-    isMine: isMine,
+    hasRead,
+    isMine,
     content: message.txt,
   };
   return mappedMessage;

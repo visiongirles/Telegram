@@ -1,7 +1,7 @@
 export interface MessageForServer {
   chat_id: number;
-  date: number;
+  // created_at: string;
   username: string;
   txt: string;
-  status: number;
+  // status: number;
 }

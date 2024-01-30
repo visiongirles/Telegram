@@ -1,23 +1,19 @@
 import SideNavBar from './SideNavBar';
 import ChatBox from './ChatBox';
 import { webSocketConnection } from '../services/client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
 import { getChatsPreview } from '../features/chatsPreviewSlice';
-import { setCurrentChat } from '../features/currentChatSlice';
+import { addMessage, setCurrentChat } from '../features/currentChatSlice';
 import { mapCurrentChat } from '../utils/mapCurrentChat';
+import { mapNewMessage } from '../utils/mapNewMessage';
+import { MessageFromServer } from '../interfaces';
 
-// interface RequestId {
-//   id: number;
-//   callback: () => void;
-// }
-
-// const initialState: RequestId[] = [];
+// REMARK:  Если авторизация будет, то и user id не надо передавать. 
+// Можно для теста пока записать user id в cookies
 
 export default function Main() {
-  // Local state for storing og requestId and callback
-  // const [requestArray, setRequestArray] = useState(initialState);
 
   const currentChat = useAppSelector((state) => state.currentChat);
 
@@ -30,8 +26,8 @@ export default function Main() {
       const responseData = JSON.parse(event.data);
       switch (responseData.type) {
         case 'get-chats-preview': {
-          const requestId = responseData.id;
-          console.log(requestId);
+          // const requestId = responseData.id;
+          console.table(responseData.chatsPreview);
           const rawChatsPreview = responseData.chatsPreview;
           // prepare ChatPreviews for UI
           const chatsPreview = rawChatsPreview.map(mapChatsPreview);
@@ -44,6 +40,26 @@ export default function Main() {
           const rawMessages = responseData.messages;
           const mappedMessages = rawMessages.map(mapCurrentChat);
           dispatch(setCurrentChat(mappedMessages));
+          break;
+        }
+        case 'create-new-message': {
+          console.log('CREATE-NEW-MESSAGE', responseData.message);
+          const rawMessage: MessageFromServer = responseData.message;
+          const mappedMessage = mapNewMessage(rawMessage);
+          dispatch(addMessage(mappedMessage));
+          // console.log('Я к Вам  с сервера с новыми сообщениями');
+          // console.table(rawMessages);
+
+          break;
+        }
+        case 'delete-message-by-id': {
+          console.log('CREATE-NEW-MESSAGE', responseData.message);
+          const rawMessage: MessageFromServer = responseData.message;
+          const mappedMessage = mapNewMessage(rawMessage);
+          dispatch(addMessage(mappedMessage));
+          // console.log('Я к Вам  с сервера с новыми сообщениями');
+          // console.table(rawMessages);
+
           break;
         }
       }
@@ -62,3 +78,5 @@ export default function Main() {
     </div>
   );
 }
+
+

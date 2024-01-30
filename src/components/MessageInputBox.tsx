@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { sendMessageAction } from '../reducers/actions';
+// import { sendMessageAction } from '../reducers/actions';
 import { useAppDispatch } from '../hooks';
 import { mapMessageForServer } from '../utils/mapMessageForServer';
+import { sendMessage } from '../features';
 
 interface MessageInputBoxProps {
   chatId: number;
@@ -16,15 +17,9 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
     event.preventDefault();
 
     const updatedMessage = mapMessageForServer(text, chatId);
-    // {
-    //   date: ,
-    //   author: 'Kate',
-    //   hasRead: false,
-    //   isMine: true,
-    //   content: text,
-    // };
 
-    dispatch(sendMessageAction(updatedMessage));
+ console.log('Я новое сообщение перед отправкой: ', updatedMessage);
+    dispatch(sendMessage(updatedMessage));
 
     setText('');
   }

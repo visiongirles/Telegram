@@ -1,5 +1,9 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 export function createNewDate() {
-  return dayjs().millisecond();
+  dayjs.extend(utc);
+  // return dayjs().millisecond();
+  return dayjs.utc().format();
+  // return new Date().toISOString();
 }

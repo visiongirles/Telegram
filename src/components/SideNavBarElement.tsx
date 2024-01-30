@@ -28,7 +28,7 @@ export default function SideNavBarElement({
       textIfPreviewTooLong;
   }
 
-  const lastActivity = dateFormatter(conversation.lastMessage.date);
+  const lastActivity = dateFormatter(conversation.lastMessage.created_at);
 
   const messageStatus = conversation.lastMessage.hasRead ? '\ue901' : '';
 

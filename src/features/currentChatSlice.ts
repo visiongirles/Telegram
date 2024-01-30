@@ -18,11 +18,10 @@ export const fetchChatById = createAsyncThunk(
 
 export const sendMessage = createAsyncThunk(
   'sendMessage',
-  async (message: MessageForServer, { getState }) => {
+  async (message: MessageForServer) => {
     const data = JSON.stringify({ type: 'create-new-message', message });
     webSocketSend(data);
     // TODO: можно ли вернуться текущий стейт?
-    return getState;
   }
 );
 
@@ -40,6 +39,10 @@ export const currentChatSlice = createSlice({
     },
     setCurrentChat(state, action: PayloadAction<Message[]>) {
       state.messages = action.payload;
+    },
+
+    addMessage(state, action: PayloadAction<Message>) {
+            state.messages?.push(action.payload);
     },
 
     deleteMessage(state, action: PayloadAction<number>) {
@@ -68,7 +71,7 @@ export const currentChatSlice = createSlice({
 
 // `createSlice` automatically generated action creators with these names.
 // export them as named exports from this "slice" file
-export const { getCurrentChat, setCurrentChat, deleteMessage } =
+export const { getCurrentChat, setCurrentChat, deleteMessage, addMessage } =
   currentChatSlice.actions;
 
 // Export the slice reducer as the default export

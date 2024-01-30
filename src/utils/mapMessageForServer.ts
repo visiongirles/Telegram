@@ -1,16 +1,16 @@
 import { MessageForServer } from '../interfaces';
-import { createNewDate } from './createNewDate';
+// import { createNewDate } from './createNewDate';
 
-export function mapMessageForServer(message: any, chatId: number) {
-  const status = 0;
+export function mapMessageForServer(text: string, chatId: number) {
+  // const status = 0;
   const author = 'Kate'; // settings.username
 
   const mappedMessage: MessageForServer = {
     chat_id: chatId,
-    date: createNewDate(),
+    // created_at: createNewDate(),
     username: author,
-    txt: message,
-    status: status,
+    txt: text,
+    // status: status,
   };
   return mappedMessage;
 }
