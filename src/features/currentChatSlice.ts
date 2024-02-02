@@ -2,13 +2,11 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { webSocketSend } from '../services/client';
 import { Chat, Message, MessageForServer, DeletedMessage } from '../interfaces';
 
-
-
 // First, create the thunk
 export const fetchChatById = createAsyncThunk(
   'fetchChatById',
   async (chatId: number) => {
-    console.log('FETCHID', chatId);
+    // console.log('FETCHID', chatId);
     // socket -> send message
     const data = JSON.stringify({ type: 'get-chat-by-id', chatId });
     webSocketSend(data); // TODO: Отправка запроса на сервер -> нужно обновить массив запросов
@@ -27,12 +25,20 @@ export const sendMessage = createAsyncThunk(
   }
 );
 
+interface DeleteMessageById {
+  chatId: number;
+  messageId: number;
+}
 
 export const deleteMessageById = createAsyncThunk(
   'deleteMessageById',
-  async (chatId, messageId) => {
-    
-    const data = JSON.stringify({ type: 'delete-message-by-id', chatId, messageId });
+
+  async ({ chatId, messageId }: DeleteMessageById) => {
+    const data = JSON.stringify({
+      type: 'delete-message-by-id',
+      chatId,
+      messageId,
+    });
     webSocketSend(data);
     // TODO: можно ли вернуться текущий стейт?
   }
@@ -55,7 +61,7 @@ export const currentChatSlice = createSlice({
     },
 
     addMessage(state, action: PayloadAction<Message>) {
-            state.messages?.push(action.payload);
+      state.messages?.push(action.payload);
     },
 
     deleteMessage(state, action: PayloadAction<DeletedMessage>) {

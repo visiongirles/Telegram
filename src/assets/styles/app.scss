@@ -92,6 +92,77 @@ body {
   flex-flow: row;
 }
 
+// || Login Form
+
+.form-signin {
+  width: 100%;
+  margin: auto;
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type='email'] {
+  margin-bottom: 1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type='password'] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-floating {
+  // position: relative;
+  width: 100%;
+
+  > label {
+    color: gray;
+    // position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%; // allow textareas
+    padding: 0.5em;
+    overflow: hidden;
+    text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    border: 1 solid transparent; // Required for aligning label's text with the input as it affects inner box model
+    transform-origin: 0 0;
+    // @include transition($form-floating-transition);
+  }
+
+  > .form-control,
+  > .form-control-plaintext {
+    padding: 1em;
+  }
+
+  > .form-select {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
+
+.form-check-input {
+  padding: 5em;
+}
+
+.form-check-label {
+  padding: 0.5em;
+}
+
+.login-submit-button {
+  // width: 50px;
+  padding: 1em;
+}
+
 /* || Main Component */
 
 .main-container {
