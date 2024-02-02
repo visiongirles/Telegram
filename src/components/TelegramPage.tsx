@@ -1,6 +1,6 @@
 import SideNavBar from './SideNavBar';
 import ChatBox from './ChatBox';
-import { webSocketConnection } from '../services/client';
+import { webSocketConnection, createWebSocket } from '../services/client';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
@@ -14,6 +14,8 @@ import { mapCurrentChat } from '../utils/mapCurrentChat';
 import { mapNewMessage } from '../utils/mapNewMessage';
 import { MessageFromServer } from '../interfaces';
 
+const URL_WEBSOCKET = 'ws://localhost:3000/websockets';
+
 // REMARK:  Если авторизация будет, то и user id не надо передавать.
 // Можно для теста пока записать user id в cookies
 
@@ -23,8 +25,9 @@ export default function TelegramPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    createWebSocket(URL_WEBSOCKET);
+
     // Socket connection - on 'message' event handler
-    console.log("I'm from TelegramPage");
     webSocketConnection.onmessage = function (event) {
       // parse data from server
       const responseData = JSON.parse(event.data);

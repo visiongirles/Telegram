@@ -6,7 +6,7 @@ interface UserAuth {
 }
 
 const initialAuthentication = {
-  isAuthorized: true,
+  isAuthorized: false,
   error: null,
 };
 

@@ -1,31 +1,38 @@
 // webSocketConnection - a main element which act from client side to ensure connection with server
-export const webSocketConnection = new WebSocket(
-  'ws://localhost:3000/websockets'
-);
+export let webSocketConnection;
 
-// when socket connection is open
-webSocketConnection.onopen = function (event) {
-  const requestObject = { id: 1, type: 'get-chats-preview' };
-  const requestString = JSON.stringify(requestObject);
-  webSocketSend(requestString);
+export function createWebSocket(url) {
+  webSocketConnection = new WebSocket(url);
 
-  console.log('Соединение установлено.');
-};
+  // when socket connection is open
+  webSocketConnection.onopen = function (event) {
+    console.log('Соединение установлено.');
+    const requestObject = { id: 1, type: 'get-chats-preview' };
+    const requestString = JSON.stringify(requestObject);
+    webSocketSend(requestString);
+  };
 
-// when socket connection is closed
-webSocketConnection.onclose = function (event) {
-  if (event.wasClean) {
-    console.log('Соединение закрыто чисто');
-  } else {
-    console.log('Обрыв соединения'); // например, "убит" процесс сервера
-  }
-  console.log('Код: ' + event.code + ' причина: ' + event.reason);
-};
+  // when socket connection is closed
+  webSocketConnection.onclose = function (event) {
+    if (event.wasClean) {
+      console.log('Соединение закрыто чисто');
+    } else {
+      console.log('Обрыв соединения'); // например, "убит" процесс сервера
+    }
+    console.log('Код: ' + event.code + ' причина: ' + event.reason);
+  };
 
-// when socket connection has error
-webSocketConnection.onerror = function (error) {
-  console.log('Ошибка ' + error.message);
-};
+  // when socket connection has error
+  webSocketConnection.onerror = function (error) {
+    console.log('Ошибка ' + error.message);
+  };
+}
+
+// 'ws://localhost:3000/websockets'
+
+// export let webSocketConnection = new WebSocket(
+//   'ws://localhost:3000/websockets'
+// );
 
 // debouncing
 export const webSocketSend = function (data) {
