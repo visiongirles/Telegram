@@ -1,6 +1,7 @@
 // webSocketConnection - a main element which act from client side to ensure connection with server
 export let webSocketConnection;
 
+// Alternativaly, https://controlc.com/020ee21d
 export function createWebSocket(url) {
   webSocketConnection = new WebSocket(url);
 
