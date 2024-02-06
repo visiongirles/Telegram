@@ -15,12 +15,8 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-
     const updatedMessage = mapMessageForServer(text, chatId);
-
- console.log('Я новое сообщение перед отправкой: ', updatedMessage);
     dispatch(sendMessage(updatedMessage));
-
     setText('');
   }
 
@@ -42,7 +38,3 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
     </form>
   );
 }
-
-// на тему, как будет отрисовывать новые сообщения
-// ждем ответ от сервер
-// и не ресетить форму отправки, пока не получм подтверждение от сервера, что сообщение им получено

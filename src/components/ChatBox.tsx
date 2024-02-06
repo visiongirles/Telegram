@@ -16,7 +16,7 @@ const initialContextMenuButtonOptions = {
   chosenMessageId: 0,
 };
 
-function ChatBox({ currentChat }: ChatBoxProps) {
+export default function ChatBox({ currentChat }: ChatBoxProps) {
   // Context Menu set-up: coordinates
   const [coords, setCoords] = useState<Point2D>({ x: 0, y: 0 });
 
@@ -94,5 +94,3 @@ function ChatBox({ currentChat }: ChatBoxProps) {
     </main>
   );
 }
-
-export default ChatBox;

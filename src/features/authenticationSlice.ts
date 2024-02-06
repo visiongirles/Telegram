@@ -6,7 +6,7 @@ interface UserAuth {
 }
 
 const initialAuthentication = {
-  isAuthorized: false,
+  isAuthorized: true,
   error: null,
 };
 
@@ -26,8 +26,7 @@ export const fetchAuthentication = createAsyncThunk(
       });
 
       if (response.ok) {
-        // console.log('Authentication successful');
-        const data = await response.json(); // Ответ от сервера, если необходимо
+        const data = await response.json();
         return data;
       } else {
         throw new Error('Authentication failed');
@@ -63,7 +62,6 @@ export const authenticationSlice = createSlice({
     });
     builder.addCase(fetchAuthentication.rejected, (state, action) => {
       console.log('ACTION rejected', action.payload);
-
       state.isAuthorized = false;
     });
   },
@@ -75,29 +73,3 @@ export const { setAuthentication } = authenticationSlice.actions;
 
 // Export the slice reducer as the default export
 export default authenticationSlice.reducer;
-
-// TODO: how to make preparation for Message creation Action
-// https://redux-toolkit.js.org/api/createslice
-// import { createSlice, nanoid } from '@reduxjs/toolkit'
-// import type { PayloadAction } from '@reduxjs/toolkit'
-
-// interface Item {
-//   id: string
-//   text: string
-// }
-
-// const todosSlice = createSlice({
-//   name: 'todos',
-//   initialState: [] as Item[],
-//   reducers: {
-//     addTodo: {
-//       reducer: (state, action: PayloadAction<Item>) => {
-//         state.push(action.payload)
-//       },
-//       prepare: (text: string) => {
-//         const id = nanoid()
-//         return { payload: { id, text } }
-//       },
-//     },
-//   },
-// })

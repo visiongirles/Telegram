@@ -3,12 +3,10 @@ interface LogoProps {
   imageAlt: string;
 }
 
-function Logo({ imageSrc, imageAlt }: LogoProps) {
+export default function Logo({ imageSrc, imageAlt }: LogoProps) {
   return (
     <>
       <img className='logo' src={imageSrc} alt={imageAlt} />
     </>
   );
 }
-
-export default Logo;

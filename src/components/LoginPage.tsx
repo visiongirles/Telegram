@@ -29,7 +29,7 @@ export default function LoginPage() {
   return (
     <main className='form-signin'>
       <form className='flex col' onSubmit={handleSubmit}>
-        <h1>Please sign in</h1>
+        <h1>Sign in</h1>
         <div className='flex col form-floating'>
           <label htmlFor='floatingInput'>Login</label>
           <input

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { ChatPreview } from '../interfaces';
 import { fetchChatById } from '../features/currentChatSlice';
 
-function SideNavBar() {
+export default function SideNavBar() {
   const chatsPreview: ChatPreview[] = useAppSelector(
     (state) => state.chatsPreview
   );
@@ -32,5 +32,3 @@ function SideNavBar() {
     </>
   );
 }
-
-export default SideNavBar;

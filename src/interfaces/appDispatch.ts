@@ -1,4 +1,4 @@
 import { store } from '../store/';
 
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+// Infer`AppDispatch` type from the store itself
 export type AppDispatch = typeof store.dispatch;

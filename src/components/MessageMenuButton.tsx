@@ -1,10 +1,10 @@
 import { ForwardedRef, forwardRef } from 'react';
-import { Point2D, DeletedMessage } from '../interfaces';
+import { Point2D } from '../interfaces';
 import { useAppDispatch } from '../hooks';
-import { deleteMessage } from '../features';
+import { deleteMessageById } from '../features';
 
 interface MessageMenuButtonProps {
-  chatId: number,
+  chatId: number;
   messageId: number;
   coords: Point2D;
   onClick: () => void;
@@ -18,7 +18,7 @@ export const MessageMenuButton = forwardRef(
     const dispatch = useAppDispatch();
 
     function handleDeleteMessage() {
-      dispatch(deleteMessage({chatId, messageId}));
+      dispatch(deleteMessageById({ chatId, messageId }));
     }
 
     return (

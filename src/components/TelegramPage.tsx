@@ -16,7 +16,7 @@ import { MessageFromServer } from '../interfaces';
 
 const URL_WEBSOCKET = 'ws://localhost:3000/websockets';
 
-// REMARK:  Если авторизация будет, то и user id не надо передавать.
+// TODO:  Если авторизация будет, то и user id не надо передавать.
 // Можно для теста пока записать user id в cookies
 
 export default function TelegramPage() {
@@ -33,9 +33,9 @@ export default function TelegramPage() {
       const responseData = JSON.parse(event.data);
       switch (responseData.type) {
         case 'get-chats-preview': {
-          // const requestId = responseData.id;
-          console.table(responseData.chatsPreview);
+          console.table('get-chats-preview', responseData.chatsPreview);
           const rawChatsPreview = responseData.chatsPreview;
+
           // prepare ChatPreviews for UI
           const chatsPreview = rawChatsPreview.map(mapChatsPreview);
 
@@ -44,28 +44,33 @@ export default function TelegramPage() {
           break;
         }
         case 'get-chat-by-id': {
+          console.table('get-chat-by-id', responseData.messages);
           const rawMessages = responseData.messages;
+
+          // prepare Chat for UI
           const mappedMessages = rawMessages.map(mapCurrentChat);
+
+          // Update state
           dispatch(setCurrentChat(mappedMessages));
           break;
         }
         case 'create-new-message': {
-          console.log('CREATE-NEW-MESSAGE', responseData.message);
+          console.table('create-new-message', responseData.message);
           const rawMessage: MessageFromServer = responseData.message;
-          const mappedMessage = mapNewMessage(rawMessage);
-          dispatch(addMessage(mappedMessage));
-          // console.log('Я к Вам  с сервера с новыми сообщениями');
-          // console.table(rawMessages);
 
+          // prepare Message for UI
+          const mappedMessage = mapNewMessage(rawMessage);
+
+          // Update state
+          dispatch(addMessage(mappedMessage));
           break;
         }
         case 'delete-message-by-id': {
-          console.log('DELETE-NEW-MESSAGE', responseData.deletedMessage);
+          console.table('delete-message-by-id', responseData.deletedMessage);
           const deletedMessage = responseData.deletedMessage;
-          dispatch(deleteMessage(deletedMessage));
-          // console.log('Я к Вам  с сервера с новыми сообщениями');
-          // console.table(rawMessages);
 
+          // Update state
+          dispatch(deleteMessage(deletedMessage));
           break;
         }
       }

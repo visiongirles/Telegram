@@ -8,11 +8,13 @@ interface MessageBoxProps {
   contextMenuButtonVisibality: { visibility: boolean; chosenMessageId: number };
 }
 
-function MessageBox({ message, onContextMenu }: MessageBoxProps) {
-  const messageBoxStyle =
-    message.isMine
-      ? 'message-box right-message'
-      : 'message-box left-message';
+export default function MessageBox({
+  message,
+  onContextMenu,
+}: MessageBoxProps) {
+  const messageBoxStyle = message.isMine
+    ? 'message-box right-message'
+    : 'message-box left-message';
 
   const messageStatus = message.hasRead ? '\ue901' : '\ue900';
   const messageStatusClass = message.hasRead
@@ -34,5 +36,3 @@ function MessageBox({ message, onContextMenu }: MessageBoxProps) {
     </>
   );
 }
-
-export default MessageBox;
