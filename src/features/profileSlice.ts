@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Profile, Status } from '../interfaces';
+import { Profile, UserStatus } from '../interfaces';
 
 const initialProfile = {
   username: 'placeholder for username',
   profilePicture: 'placeholder for profilePicture', // picture of loading
-  status: Status.Online,
+  status: UserStatus.Online,
 } as Profile;
 
 export const profileSlice = createSlice({

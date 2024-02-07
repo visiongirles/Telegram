@@ -3,7 +3,7 @@ import {
   Messanger,
   Profile,
   Settings,
-  Status,
+  UserStatus,
 } from '../interfaces/';
 
 // initial state settings: initialProfile, initialSettings, initialChatPreview, initialMessanger
@@ -11,7 +11,7 @@ const initialProfile: Profile = {
   username: 'placeholder for username',
   author_id: 1,
   profilePicture: 'placeholder for profilePicture', // picture of loading
-  status: Status.Online,
+  status: UserStatus.Online,
 };
 
 const initialSettings: Settings = {

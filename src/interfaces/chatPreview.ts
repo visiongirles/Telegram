@@ -2,7 +2,8 @@ import { Message } from '.';
 
 export interface ChatPreview {
   chatId: number;
-  // username: string;
+  ownerUsername: string;
+  ownerId: number;
   photo: string;
   lastMessage: Message;
   draftMessage?: string;

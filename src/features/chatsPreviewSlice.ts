@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Message } from '../interfaces';
+import { UpdatedMessage } from '../interfaces/updatedMessage';
 
 interface ChatPreview {
   chatId: number;
@@ -45,12 +46,32 @@ export const chatsPreviewSlice = createSlice({
     ) {
       return action.payload;
     },
+    updateChatsPreview(state, { payload }: PayloadAction<UpdatedMessage>) {
+      state
+        .filter((chatPreview) => chatPreview.chatId === payload.chatId)
+        .forEach((chatPreview) => {
+          chatPreview.lastMessage = payload.message;
+        });
+
+      // const newState = state.map((chatPreview) => {
+      //   if (chatPreview.chatId === payload.chatId) {
+      //     const udpatedChatPreview = {
+      //       ...chatPreview,
+      //       lastMessage: { ...payload.message },
+      //     };
+      //     return udpatedChatPreview;
+      //   }
+      //   return chatPreview;
+      // });
+      // return newState;
+    },
   },
 });
 
 // `createSlice` automatically generated action creators with these names.
 // export them as named exports from this "slice" file
-export const { getChatsPreview } = chatsPreviewSlice.actions;
+export const { getChatsPreview, updateChatsPreview } =
+  chatsPreviewSlice.actions;
 
 // Export the slice reducer as the default export
 export default chatsPreviewSlice.reducer;

@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { webSocketSend } from '../services/client';
 import { Chat, Message, MessageForServer, DeletedMessage } from '../interfaces';
+import { UpdatedMessage } from '../interfaces/updatedMessage';
 
 // create the thunk
 export const fetchChatById = createAsyncThunk(
@@ -47,22 +48,25 @@ export const currentChatSlice = createSlice({
   initialState: initialCurrentChat,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getCurrentChat(state, action: PayloadAction<number>) {
-      state.chatId = action.payload;
+    //  action: PayloadAction<number>
+    getCurrentChat(state, { payload }: PayloadAction<number>) {
+      state.chatId = payload;
       state.messages = [];
     },
-    setCurrentChat(state, action: PayloadAction<Message[]>) {
-      state.messages = action.payload;
+    // action: PayloadAction<Message[]>
+    setCurrentChat(state, { payload }: PayloadAction<Message[]>) {
+      state.messages = payload;
     },
-
-    addMessage(state, action: PayloadAction<Message>) {
-      state.messages?.push(action.payload);
+    // action: PayloadAction<Message>
+    addMessage(state, { payload }: PayloadAction<UpdatedMessage>) {
+      if (state.chatId === payload.chatId)
+        state.messages?.push(payload.message);
     },
-
-    deleteMessage(state, action: PayloadAction<DeletedMessage>) {
-      if (state.chatId !== action.payload.chatId) return state;
+    // action: PayloadAction<DeletedMessage>
+    deleteMessage(state, { payload }: PayloadAction<DeletedMessage>) {
+      if (state.chatId !== payload.chatId) return state;
       const updatedMessages = state.messages?.filter(
-        (item) => item.id !== action.payload.messageId
+        (item) => item.id !== payload.messageId
       );
       state.messages = updatedMessages;
     },

@@ -4,7 +4,10 @@ import { webSocketConnection, createWebSocket } from '../services/client';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
-import { getChatsPreview } from '../features/chatsPreviewSlice';
+import {
+  getChatsPreview,
+  updateChatsPreview,
+} from '../features/chatsPreviewSlice';
 import {
   addMessage,
   deleteMessage,
@@ -56,13 +59,15 @@ export default function TelegramPage() {
         }
         case 'create-new-message': {
           console.table('create-new-message', responseData.message);
+          const chatId: number = responseData.chatId;
           const rawMessage: MessageFromServer = responseData.message;
 
           // prepare Message for UI
-          const mappedMessage = mapNewMessage(rawMessage);
+          const mappedMessage = mapNewMessage(chatId, rawMessage);
 
           // Update state
           dispatch(addMessage(mappedMessage));
+          dispatch(updateChatsPreview(mappedMessage));
           break;
         }
         case 'delete-message-by-id': {
