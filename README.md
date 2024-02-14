@@ -1,7 +1,23 @@
 # Project name and description.
 
-A messanger prototype based on Telegram's design and functionality.
+Fullstack project.
+A messanger prototype (pet-project) based on Telegram's design and functionality.
 
-This is a pet-project to practiсe React.
+- Client: React, Redux Tool Kit, Websocket, Dayjs
+- Server (local): Nodejs, Express, ws, jsonwebtoken https://github.com/visiongirles/TelegramServer
+- Database (local): PostreSQL
 
-Something went wrong and currently I'm working on backend - websockets and first database to support my messanger.
+Self made API.
+
+Practice:
+
+- Authentication
+- Routing
+- State management
+- React hooks
+
+# To run
+
+    `git clone https://github.com/visiongirles/TelegramServer.git`
+    `npm install`
+    `npm run dev`
