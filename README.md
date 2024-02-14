@@ -18,6 +18,15 @@ Practice:
 
 # To run
 
-    `git clone https://github.com/visiongirles/TelegramServer.git`
-    `npm install`
-    `npm run dev`
+- Client:
+  git clone https://github.com/visiongirles/Telegram.git
+  npm install
+  npm run dev
+
+- Server
+  git clone https://github.com/visiongirles/TelegramServer.git
+  npm install
+  node server.js
+
+- Database
+  (working on an article)
