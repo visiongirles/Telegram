@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { getCurrentYear } from '../utils/getCurrentYear';
-import { fetchAuthentication } from '../features/authenticationSlice';
 import { useAppDispatch } from '../hooks';
 import { Link } from 'react-router-dom';
 
@@ -11,11 +10,11 @@ export default function LoginPage() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const authenticationInfo = {
+    const reqistrationInfo = {
       login: login,
       password: password,
     };
-    dispatch(fetchAuthentication(authenticationInfo));
+    // dispatch(fetchAuthentication(authenticationInfo)); // TODO: дописать fetch
 
     // отправка запроса на сервер login и password
   }
@@ -28,18 +27,17 @@ export default function LoginPage() {
   }
 
   function handleClick() {
-    <Link to='/register' />;
+    <Link to='/login' />;
   }
 
   return (
     <main className='form-signin'>
-      <h1>SIGN UP</h1>
+      <h1>REGISTER</h1>
       <form className='flex col' onSubmit={handleSubmit}>
-        <button disabled={true}>Sign in</button>
         <button>
-          {' '}
-          <Link to='/register'>Registration</Link>
+          <Link to='/login'>Login</Link>
         </button>
+        <button disabled={true}>Registration</button>
         <div className='flex col form-floating'>
           <label htmlFor='floatingInput'>Login</label>
           <input
@@ -80,17 +78,3 @@ export default function LoginPage() {
     </main>
   );
 }
-
-// <div className="flex col">
-//     <form onSubmit={handleSubmit} >
-//         <label>
-//         Login:
-//             <input type="text" name="login" onChange={handleChangeLogin} value={login}/>
-//         </label>
-//         <label>
-//         Password:
-//             <input type="text" name="password" onChange={handleChangePassword}  value={password}/>
-//         </label>
-//         <input type="submit" value="Submit" />
-//         </form>
-// </div>

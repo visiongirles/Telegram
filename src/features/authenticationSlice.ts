@@ -6,9 +6,64 @@ interface UserAuth {
 }
 
 const initialAuthentication = {
-  isAuthorized: true,
+  isAuthorized: false,
   error: null,
 };
+
+export const fetchRegistration = createAsyncThunk(
+  'fetchRegistration',
+  async ({ login, password }: UserAuth, thunkAPI) => {
+    try {
+      const response = await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: login,
+          password: password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error('Authentication failed');
+      }
+    } catch (error) {
+      if (error instanceof Error)
+        return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchAuthenticationByToken = createAsyncThunk(
+  'fetchAuthenticationByToken',
+  async (token: string, thunkAPI) => {
+    try {
+      const response = await fetch('http://localhost:3000/authByToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: token,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error('Authentication failed');
+      }
+    } catch (error) {
+      if (error instanceof Error)
+        return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchAuthentication = createAsyncThunk(
   'fetchAuthentication',
@@ -55,12 +110,28 @@ export const authenticationSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-
     builder.addCase(fetchAuthentication.fulfilled, (state, action) => {
       console.log('ACTION FULLFILFED', action.payload);
+      localStorage.setItem('accessToken', action.payload.token); // TODO: Side effect надо бы убрать?
       state.isAuthorized = true;
     });
     builder.addCase(fetchAuthentication.rejected, (state, action) => {
+      console.log('ACTION rejected', action.payload);
+      state.isAuthorized = false;
+    });
+    builder.addCase(fetchRegistration.fulfilled, (state, action) => {
+      console.log('ACTION FULLFILFED', action.payload);
+      state.isAuthorized = true;
+    });
+    builder.addCase(fetchRegistration.rejected, (state, action) => {
+      console.log('ACTION rejected', action.payload);
+      state.isAuthorized = false;
+    });
+    builder.addCase(fetchAuthenticationByToken.fulfilled, (state, action) => {
+      console.log('ACTION FULLFILFED', action.payload);
+      state.isAuthorized = true;
+    });
+    builder.addCase(fetchAuthenticationByToken.rejected, (state, action) => {
       console.log('ACTION rejected', action.payload);
       state.isAuthorized = false;
     });
