@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Profile, UserStatus } from '../interfaces';
 
 const initialProfile = {
-  username: 'placeholder for username',
+  user_id: 0,
   profilePicture: 'placeholder for profilePicture', // picture of loading
   status: UserStatus.Online,
 } as Profile;

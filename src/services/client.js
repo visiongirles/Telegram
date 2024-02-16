@@ -8,6 +8,12 @@ export function createWebSocket(url) {
   // when socket connection is open
   webSocketConnection.onopen = function (event) {
     console.log('Соединение установлено.');
+
+    const token = localStorage.getItem('accessToken');
+    const requestObjectToken = { type: 'set-token', token: token };
+    const requestStringToken = JSON.stringify(requestObjectToken);
+    webSocketSend(requestStringToken);
+
     const requestObject = { type: 'get-chats-preview' };
     const requestString = JSON.stringify(requestObject);
     webSocketSend(requestString);
