@@ -1,7 +1,7 @@
 import { UserStatus } from '.';
 
 export interface Profile {
-  username: string;
+  user_id: number;
   author_id: number;
   profilePicture: string;
   status: UserStatus;

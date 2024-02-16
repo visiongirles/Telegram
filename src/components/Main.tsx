@@ -6,6 +6,7 @@ import RegistrationPage from './RegistrationPage.js';
 import { fetchAuthenticationByToken } from '../features/authenticationSlice.js';
 import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './ErrorPage.js';
+
 export default function Main() {
   const dispatch = useAppDispatch();
 
