@@ -2,7 +2,7 @@
 export let webSocketConnection;
 
 // Alternativaly, https://controlc.com/020ee21d
-export function createWebSocket(url) {
+export function createWebSocket(url, userId) {
   webSocketConnection = new WebSocket(url);
 
   // when socket connection is open
@@ -14,7 +14,7 @@ export function createWebSocket(url) {
     const requestStringToken = JSON.stringify(requestObjectToken);
     webSocketSend(requestStringToken);
 
-    const requestObject = { type: 'get-chats-preview' };
+    const requestObject = { type: 'get-chats-preview', userId: userId };
     const requestString = JSON.stringify(requestObject);
     webSocketSend(requestString);
   };

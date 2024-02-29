@@ -40,7 +40,12 @@ export const deleteMessageById = createAsyncThunk(
   }
 );
 
-const initialCurrentChat = { chatId: undefined, messages: undefined } as Chat;
+const initialCurrentChat = {
+  chatId: undefined,
+  messages: undefined,
+  title: undefined,
+} as Chat;
+// const initialCurrentChat: null | Chat = null;
 
 export const currentChatSlice = createSlice({
   name: 'currentChat',
