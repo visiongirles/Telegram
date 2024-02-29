@@ -2,19 +2,17 @@ import { ChatPreview, MessageStatus } from '../interfaces';
 
 export function mapChatsPreview(rawChatPreview: any) {
   const hasRead = rawChatPreview.status === MessageStatus.hasRead;
-  const isMine = rawChatPreview.username === 'Kate';
   const chatPreview: ChatPreview = {
     chatId: rawChatPreview.chat_id,
-    ownerUsername: rawChatPreview.username,
-    ownerId: 1, // TODO:
+    title: rawChatPreview.username,
     photo: rawChatPreview.photo,
     lastMessage: {
       id: rawChatPreview.id,
       created_at: rawChatPreview.created_at,
-      isMine,
+      isMine: false,
       content: rawChatPreview.txt,
       hasRead,
-      author: rawChatPreview.username,
+      author_id: rawChatPreview.author_id,
     },
   };
   return chatPreview;

@@ -42,7 +42,7 @@ export default function SideNavBarElement({
       </div>
       <div className='preview-group'>
         <div className='status-group'>
-          <div className='user'>{conversation.lastMessage.author}</div>
+          <div className='user'>{conversation.title}</div>
           <div className='tgico unread-messages'>{messageStatus}</div>
           <div className='last-activity'>{lastActivity}</div>
         </div>

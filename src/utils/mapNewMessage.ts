@@ -1,14 +1,20 @@
-import { Message, MessageFromServer } from '../interfaces';
+import { Message, MessageFromServer, MessageStatus } from '../interfaces';
 
-export function mapNewMessage(chatId: number, rawMessage: MessageFromServer) {
-  const hasRead = rawMessage.status === 'Online';
-  const isMine = rawMessage.author_id === 1;
-  const author = rawMessage.author_id === 1 ? 'Kate' : 'UNKNOWN';
+export function mapNewMessage(
+  chatId: number,
+  rawMessage: MessageFromServer,
+  userId: number
+) {
+  console.log('[mapNewMessage, message from server]: ', rawMessage);
+  console.log('[mapNewMessage, userId]: ', userId);
+
+  const hasRead = rawMessage.status === MessageStatus.hasRead;
+  const isMine = rawMessage.author_id === userId;
 
   const message: Message = {
     id: rawMessage.id,
     created_at: rawMessage.created_at,
-    author: author,
+    author_id: rawMessage.author_id,
     hasRead: hasRead,
     isMine: isMine,
     content: rawMessage.txt,

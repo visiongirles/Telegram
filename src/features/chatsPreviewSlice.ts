@@ -1,23 +1,17 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Message } from '../interfaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ChatPreview } from '../interfaces';
 import { UpdatedMessage } from '../interfaces/updatedMessage';
-
-interface ChatPreview {
-  chatId: number;
-  photo: string;
-  lastMessage: Message;
-  draftMessage?: string;
-}
 
 const initialChatsPreview = [
   {
     chatId: 0,
+    title: 'placeholder',
     photo:
       'https://i.pinimg.com/originals/2e/60/07/2e60079f1e36b5c7681f0996a79e8af4.jpg', // picture of loading
     lastMessage: {
-      id: 1,
+      id: 0,
       created_at: Date.now().toString(),
-      author: 'placeholder for author',
+      author_id: 0,
       hasRead: false,
       isMine: false,
       content: 'placeholder for content',
@@ -31,19 +25,7 @@ export const chatsPreviewSlice = createSlice({
   initialState: initialChatsPreview,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getChatsPreview(
-      _,
-      action: PayloadAction<
-        [
-          {
-            chatId: number;
-            photo: string;
-            lastMessage: Message;
-            draftMessage?: string;
-          }
-        ]
-      >
-    ) {
+    getChatsPreview(_, action: PayloadAction<[ChatPreview]>) {
       return action.payload;
     },
     updateChatsPreview(state, { payload }: PayloadAction<UpdatedMessage>) {
@@ -52,18 +34,6 @@ export const chatsPreviewSlice = createSlice({
         .forEach((chatPreview) => {
           chatPreview.lastMessage = payload.message;
         });
-
-      // const newState = state.map((chatPreview) => {
-      //   if (chatPreview.chatId === payload.chatId) {
-      //     const udpatedChatPreview = {
-      //       ...chatPreview,
-      //       lastMessage: { ...payload.message },
-      //     };
-      //     return udpatedChatPreview;
-      //   }
-      //   return chatPreview;
-      // });
-      // return newState;
     },
   },
 });

@@ -27,10 +27,6 @@ export default function LoginPage() {
     setPassword(event.target.value);
   }
 
-  function handleClick() {
-    <Link to='/register' />;
-  }
-
   return (
     <main className='form-signin'>
       <h1>SIGN UP</h1>

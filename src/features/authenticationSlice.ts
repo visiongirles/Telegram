@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { setProfile } from './profileSlice';
+import { UserStatus } from '../interfaces';
 
 interface UserAuth {
   login: string;
@@ -27,6 +29,7 @@ export const fetchRegistration = createAsyncThunk(
 
       if (response.ok) {
         const data = await response.json();
+        thunkAPI.dispatch(setProfile(data.user_id));
         return data;
       } else {
         throw new Error('Authentication failed');
@@ -54,6 +57,15 @@ export const fetchAuthenticationByToken = createAsyncThunk(
 
       if (response.ok) {
         const data = await response.json();
+        console.log('payload for ProfileSlice: ', data);
+        thunkAPI.dispatch(
+          setProfile({
+            username: data.user.username,
+            profilePicture: data.user.photo, // picture of loading
+            status: UserStatus.Online,
+            user_id: data.user.id,
+          })
+        );
         return data;
       } else {
         throw new Error('Authentication failed');
@@ -82,6 +94,14 @@ export const fetchAuthentication = createAsyncThunk(
 
       if (response.ok) {
         const data = await response.json();
+        thunkAPI.dispatch(
+          setProfile({
+            username: data.user.username,
+            profilePicture: data.user.photo, // picture of loading
+            status: UserStatus.Online,
+            user_id: data.user.id,
+          })
+        );
         return data;
       } else {
         throw new Error('Authentication failed');
@@ -114,6 +134,7 @@ export const authenticationSlice = createSlice({
       console.log('ACTION FULLFILFED', action.payload);
       localStorage.setItem('accessToken', action.payload.token); // TODO: Side effect надо бы убрать?
       state.isAuthorized = true;
+      // console.log('[USER_ID in state THUNK]', action.payload.user_id);
     });
     builder.addCase(fetchAuthentication.rejected, (state, action) => {
       console.log('ACTION rejected', action.payload);
@@ -130,6 +151,7 @@ export const authenticationSlice = createSlice({
     builder.addCase(fetchAuthenticationByToken.fulfilled, (state, action) => {
       console.log('ACTION FULLFILFED', action.payload);
       state.isAuthorized = true;
+      // console.log('[USER_ID in state THUNK]', action.payload.user_id);
     });
     builder.addCase(fetchAuthenticationByToken.rejected, (state, action) => {
       console.log('ACTION rejected', action.payload);

@@ -24,11 +24,13 @@ const URL_WEBSOCKET = 'ws://localhost:3000/websockets';
 
 export default function TelegramPage() {
   const currentChat = useAppSelector((state) => state.currentChat);
-
+  const userId = useAppSelector((store) => store.profile.user_id);
+  // const username = useAppSelector((store) => store.profile.username);
+  console.log('[USER_ID FROM state]', userId);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    createWebSocket(URL_WEBSOCKET);
+    createWebSocket(URL_WEBSOCKET, userId);
 
     // Socket connection - on 'message' event handler
     webSocketConnection.onmessage = function (event) {
@@ -38,6 +40,7 @@ export default function TelegramPage() {
         case 'get-chats-preview': {
           console.table('get-chats-preview', responseData.chatsPreview);
           const rawChatsPreview = responseData.chatsPreview;
+          console.log('CHAT PREVIEWS ', rawChatsPreview);
 
           // prepare ChatPreviews for UI
           const chatsPreview = rawChatsPreview.map(mapChatsPreview);
@@ -51,7 +54,9 @@ export default function TelegramPage() {
           const rawMessages = responseData.messages;
 
           // prepare Chat for UI
-          const mappedMessages = rawMessages.map(mapCurrentChat);
+          const mappedMessages = rawMessages.map((item: any) =>
+            mapCurrentChat(item, userId)
+          );
 
           // Update state
           dispatch(setCurrentChat(mappedMessages));
@@ -63,7 +68,7 @@ export default function TelegramPage() {
           const rawMessage: MessageFromServer = responseData.message;
 
           // prepare Message for UI
-          const mappedMessage = mapNewMessage(chatId, rawMessage);
+          const mappedMessage = mapNewMessage(chatId, rawMessage, userId);
 
           // Update state
           dispatch(addMessage(mappedMessage));
