@@ -4,33 +4,33 @@ import { webSocketConnection, createWebSocket } from '../services/client';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { mapChatsPreview } from '../utils/mapChatsPreview';
+// import { updateChatsPreview } from '../features/chatsPreviewSlice';
 import {
   getChatsPreview,
-  updateChatsPreview,
-} from '../features/chatsPreviewSlice';
-import {
+  setCurrentChat,
   addMessage,
   deleteMessage,
-  setCurrentChat,
-} from '../features/currentChatSlice';
+  setMessagesRead,
+} from '../features/chatsSlice';
 import { mapCurrentChat } from '../utils/mapCurrentChat';
 import { mapNewMessage } from '../utils/mapNewMessage';
 import { MessageFromServer } from '../interfaces';
-
-const URL_WEBSOCKET = 'ws://localhost:3000/websockets';
+import config from '../services/config.json';
 
 // TODO:  Если авторизация будет, то и user id не надо передавать.
 // Можно для теста пока записать user id в cookies
 
 export default function TelegramPage() {
-  const currentChat = useAppSelector((state) => state.currentChat);
+  const currentChatId = useAppSelector((state) => state.chats.currentChat);
+  const chats = useAppSelector((state) => state.chats.activeChats);
+  const currentChat = chats?.find((chat) => chat.chatId === currentChatId);
   const userId = useAppSelector((store) => store.profile.user_id);
-  // const username = useAppSelector((store) => store.profile.username);
+
   console.log('[USER_ID FROM state]', userId);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    createWebSocket(URL_WEBSOCKET, userId);
+    createWebSocket(config.URL_WEBSOCKET, userId);
 
     // Socket connection - on 'message' event handler
     webSocketConnection.onmessage = function (event) {
@@ -59,7 +59,20 @@ export default function TelegramPage() {
           );
 
           // Update state
-          dispatch(setCurrentChat(mappedMessages));
+          // dispatch(setCurrentChat(mappedMessages));
+          dispatch(
+            setCurrentChat({
+              chatId: responseData.chatId,
+              messages: mappedMessages,
+            })
+          );
+          // TODO: dispatch all new message has been read
+          dispatch(
+            setMessagesRead({
+              chatId: responseData.chatId,
+              messages: mappedMessages,
+            })
+          );
           break;
         }
         case 'create-new-message': {
@@ -72,12 +85,16 @@ export default function TelegramPage() {
 
           // Update state
           dispatch(addMessage(mappedMessage));
-          dispatch(updateChatsPreview(mappedMessage));
+          // dispatch(updateChatsPreview(mappedMessage));
           break;
         }
         case 'delete-message-by-id': {
           console.table('delete-message-by-id', responseData.deletedMessage);
           const deletedMessage = responseData.deletedMessage;
+
+          // 1ю сравнить message id только удлаенного и того, что в чат превью
+          // если удлаенного === чат превью (т.е. мы удалили последне собщение), то 1) нужно взять предыдущее из стейта и dispatch в chat preview
+          // если !== то ничего не меняется
 
           // Update state
           dispatch(deleteMessage(deletedMessage));
@@ -88,10 +105,12 @@ export default function TelegramPage() {
     return;
   }, []);
 
+  //TODO: перенести вызов стейта выше из SideNavBAr
+  // все чаты и активный чат и распределять на левую и правую
   return (
     <div className='main-container'>
       <div className='left'>
-        <SideNavBar />
+        <SideNavBar chats={chats} currentChatId={currentChatId} />
       </div>
       <div className='right'>
         <ChatBox currentChat={currentChat} />

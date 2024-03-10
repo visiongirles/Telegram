@@ -1,12 +1,12 @@
 // webSocketConnection - a main element which act from client side to ensure connection with server
-export let webSocketConnection;
+export let webSocketConnection: WebSocket;
 
 // Alternativaly, https://controlc.com/020ee21d
-export function createWebSocket(url, userId) {
+export function createWebSocket(url: string, userId: number) {
   webSocketConnection = new WebSocket(url);
 
   // when socket connection is open
-  webSocketConnection.onopen = function (event) {
+  webSocketConnection.onopen = function () {
     console.log('Соединение установлено.');
 
     const token = localStorage.getItem('accessToken');
@@ -31,12 +31,12 @@ export function createWebSocket(url, userId) {
 
   // when socket connection has error
   webSocketConnection.onerror = function (error) {
-    console.log('Ошибка ' + error.message);
+    console.log('Ошибка ' + error.type);
   };
 }
 
 // debouncing
-export const webSocketSend = function (data) {
+export const webSocketSend = function (data: string) {
   // timeout to repeat in case of websocket is not ready
   const timeout = 1000;
 

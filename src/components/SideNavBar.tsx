@@ -1,14 +1,19 @@
 import TopNavBar from './TopNavBar';
 import SideNavBarElement from './SideNavBarElement';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { ChatPreview } from '../interfaces';
-import { fetchChatById } from '../features/currentChatSlice';
+import { Chat } from '../interfaces';
+import { fetchChatById } from '../features/chatsSlice';
 
-export default function SideNavBar() {
-  const chatsPreview: ChatPreview[] = useAppSelector(
-    (state) => state.chatsPreview
-  );
-  const currentChat = useAppSelector((state) => state.currentChat);
+interface SideNavBarProps {
+  chats: Chat[] | null;
+  currentChatId: number | null;
+}
+
+export default function SideNavBar({
+  chats,
+  currentChatId: currentChat,
+}: SideNavBarProps) {
+  // const currentChat = useAppSelector((state) => state.chats.currentChat);
 
   const dispatch = useAppDispatch();
 
@@ -20,14 +25,17 @@ export default function SideNavBar() {
     <>
       <TopNavBar />
       <div className='sidebar'>
-        {chatsPreview.map((chatPreview) => (
-          <SideNavBarElement
-            key={chatPreview.chatId}
-            conversation={chatPreview}
-            onConversationClick={() => onConversationClick(chatPreview.chatId)}
-            isSelected={chatPreview.chatId === currentChat?.chatId}
-          />
-        ))}
+        {chats &&
+          chats.map((chatPreview) => (
+            <SideNavBarElement
+              key={chatPreview.chatId}
+              conversation={chatPreview}
+              onConversationClick={() =>
+                onConversationClick(chatPreview.chatId)
+              }
+              isSelected={chatPreview.chatId === currentChat}
+            />
+          ))}
       </div>
     </>
   );

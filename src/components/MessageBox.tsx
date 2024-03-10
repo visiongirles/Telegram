@@ -17,9 +17,11 @@ export default function MessageBox({
     : 'message-box left-message';
 
   const messageStatus = message.hasRead ? '\ue901' : '\ue900';
-  const messageStatusClass = message.hasRead
-    ? 'messageStatusRead tgico'
-    : 'messageStatusNotRead tgico';
+
+  const messageStatusClass =
+    (message.hasRead ? 'messageStatusRead ' : 'messageStatusNotRead ') +
+    'tgico';
+
   const timeSent = getTimeFormatter(message.created_at);
   return (
     <>
@@ -30,7 +32,9 @@ export default function MessageBox({
         <div className='row'>{message.content}</div>
         <div className='message-status'>
           <div className='time-sent'>{timeSent}</div>
-          <div className={messageStatusClass}>{messageStatus}</div>
+          {message.isMine && (
+            <div className={messageStatusClass}>{messageStatus}</div>
+          )}
         </div>
       </div>
     </>

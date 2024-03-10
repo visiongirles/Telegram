@@ -1,9 +1,9 @@
-import { ChatPreview } from '../interfaces';
+import { Chat } from '../interfaces';
 import dateFormatter from '../utils/dateFormatter';
 import Logo from './Logo';
 
 interface SideNavBarElementProps {
-  conversation: ChatPreview;
+  conversation: Chat;
   onConversationClick: () => void;
   isSelected: boolean;
 }
@@ -13,7 +13,30 @@ export default function SideNavBarElement({
   onConversationClick,
   isSelected,
 }: SideNavBarElementProps) {
-  let lastMessagePreview = conversation.lastMessage.content;
+  const sidebarelementClass =
+    'sidebarelement' + (isSelected ? ' selected' : '');
+
+  if (!conversation.messages) {
+    return (
+      <div className={sidebarelementClass} onClick={onConversationClick}>
+        <div className='col'>
+          <Logo imageSrc={conversation.photo} imageAlt='profile photo' />
+        </div>
+        <div className='preview-group'>
+          <div className='status-group'>
+            <div className='user'>{conversation.title}</div>
+            <div className='tgico unread-messages'>{}</div>
+            <div className='last-activity'>{}</div>
+          </div>
+          <div className='preview'>{}</div>
+        </div>
+      </div>
+    );
+  }
+
+  const lastMessage = conversation.messages[conversation.messages.length - 1];
+
+  let lastMessagePreview = lastMessage.content;
 
   // если строка длинее 27 символов, чтобы поместиться на одну строку,
   // обрезаем и добавляем многоточие
@@ -28,12 +51,9 @@ export default function SideNavBarElement({
       textIfPreviewTooLong;
   }
 
-  const lastActivity = dateFormatter(conversation.lastMessage.created_at);
+  const lastActivity = dateFormatter(lastMessage.created_at);
 
-  const messageStatus = conversation.lastMessage.hasRead ? '\ue901' : '';
-
-  const sidebarelementClass =
-    'sidebarelement' + (isSelected ? ' selected' : '');
+  const messageStatus = lastMessage.hasRead ? '\ue901' : '';
 
   return (
     <div className={sidebarelementClass} onClick={onConversationClick}>
