@@ -73,29 +73,33 @@ export const chatsSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     getChatsPreview(state, action: PayloadAction<[Chat]>) {
       console.log('[ChatSlice, payload getChatsPreview]', action.payload);
-      state.activeChats = action.payload;
+      if (!!state.activeChats) state.activeChats = action.payload;
     },
 
     setCurrentChat(state, { payload }: PayloadAction<UpdatedChat>) {
       state.currentChat = payload.chatId;
-      state.activeChats?.map((chat) => {
+      state.activeChats?.forEach((chat) => {
         if (chat.chatId === payload.chatId) {
           chat.messages = payload.messages;
-          chat.messages.map((message) => (message.hasRead = true));
+          // chat.messages.forEach(
+          //   (message) => (message.hasRead = true) //
+          // );
         }
       });
     },
+
     addMessage(state, { payload }: PayloadAction<UpdatedMessage>) {
-      state.activeChats?.map((chat) => {
+      state.activeChats?.forEach((chat) => {
         if (chat.chatId === payload.chatId) {
           const updatedMessage = payload.message;
-          updatedMessage.hasRead = true;
+          // updatedMessage.hasRead = true;
           chat.messages?.push(updatedMessage);
         }
       });
     },
+
     deleteMessage(state, { payload }: PayloadAction<DeletedMessage>) {
-      state.activeChats?.map((chat) => {
+      state.activeChats?.forEach((chat) => {
         if (chat.chatId === payload.chatId) {
           const updatedMessages = chat.messages?.filter(
             (message) => message.id !== payload.messageId

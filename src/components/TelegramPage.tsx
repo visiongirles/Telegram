@@ -100,6 +100,11 @@ export default function TelegramPage() {
           dispatch(deleteMessage(deletedMessage));
           break;
         }
+        case 'set-messages-read': {
+          console.table('set-messages-read', responseData.messages);
+
+          break;
+        }
       }
     };
     return;

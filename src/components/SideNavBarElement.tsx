@@ -16,6 +16,8 @@ export default function SideNavBarElement({
   const sidebarelementClass =
     'sidebarelement' + (isSelected ? ' selected' : '');
 
+  // const chatIsNotEmpty = !conversation.messages;
+
   if (!conversation.messages) {
     return (
       <div className={sidebarelementClass} onClick={onConversationClick}>
@@ -33,6 +35,10 @@ export default function SideNavBarElement({
       </div>
     );
   }
+
+  const unreadMessages = conversation.messages.filter(
+    (message) => !message.hasRead && !message.isMine
+  ).length;
 
   const lastMessage = conversation.messages[conversation.messages.length - 1];
 
@@ -63,6 +69,7 @@ export default function SideNavBarElement({
       <div className='preview-group'>
         <div className='status-group'>
           <div className='user'>{conversation.title}</div>
+          <div>{unreadMessages}</div>
           <div className='tgico unread-messages'>{messageStatus}</div>
           <div className='last-activity'>{lastActivity}</div>
         </div>
