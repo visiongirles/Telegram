@@ -1,9 +1,6 @@
 import { Message } from '../interfaces';
 
 export function mapCurrentChat(message: any, userId: number) {
-  console.log('[mapCurrentChat, message from server]: ', message);
-  console.log('[mapCurrentChat, userId]: ', userId);
-
   const hasRead = message.status === 'hasRead';
   const isMine = message.author_id === userId;
 

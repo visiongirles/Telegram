@@ -6,7 +6,7 @@ import { MessageMenuButton } from './MessageMenuButton';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ChatBoxProps {
-  currentChat?: Chat;
+  currentChat: Chat;
   // currentChat: Chat | null;
 }
 
@@ -26,6 +26,9 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
 
   const contextButtonRef = useRef<HTMLDivElement>(null);
 
+  // Scroll position
+  const messagesListRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const onClickOutsideHandler = (event: MouseEvent) => {
       if (
@@ -36,12 +39,29 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
       }
     };
     window.addEventListener('mousedown', onClickOutsideHandler);
+
     return () => {
       window.removeEventListener('mousedown', onClickOutsideHandler);
     };
   }, [contextMenuButtonOptions]);
 
-  // check if currentChat !== udnerfined, also allows to decontruct messages
+  useEffect(() => {
+    if (!!messagesListRef.current) {
+      if (messagesListRef.current.lastChild) {
+        const scrollDownToTheLastMessage = messagesListRef.current
+          .lastChild as HTMLElement;
+
+        scrollDownToTheLastMessage.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          // inline: 'center',
+        });
+      }
+    }
+    // console.log('messagesListRef:', messagesListRef);
+  }, [currentChat.messages[currentChat.messages.length - 1]]);
+
+  // check if currentChat !== undefined, also allows to decontruct messages
   if (!currentChat?.chatId || !currentChat.messages) return;
 
   const { messages } = currentChat;
@@ -69,27 +89,30 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
   return (
     <main className='main-content'>
       <TopNavBar />
-      <div className='chatbox'>
-        {messages.map((message) => (
-          <MessageBox
-            key={message.id}
-            message={message}
-            onContextMenu={handleContextMenu}
-            coords={coords}
-            contextMenuButtonVisibality={contextMenuButtonOptions}
-          />
-        ))}
-        {/* Context Menu Button */}
-        {contextMenuButtonOptions.visibility && (
-          <MessageMenuButton
-            ref={contextButtonRef}
-            chatId={currentChat?.chatId}
-            messageId={contextMenuButtonOptions.chosenMessageId}
-            coords={coords}
-            onClick={handleCloseMenu}
-          />
-        )}
+      <div className='chatbox-wrapper'>
+        <div className='chatbox' ref={messagesListRef}>
+          {messages.map((message) => (
+            <MessageBox
+              key={message.id}
+              message={message}
+              onContextMenu={handleContextMenu}
+              coords={coords}
+              contextMenuButtonVisibality={contextMenuButtonOptions}
+            />
+          ))}
+          {/* Context Menu Button */}
+          {contextMenuButtonOptions.visibility && (
+            <MessageMenuButton
+              ref={contextButtonRef}
+              chatId={currentChat?.chatId}
+              messageId={contextMenuButtonOptions.chosenMessageId}
+              coords={coords}
+              onClick={handleCloseMenu}
+            />
+          )}
+        </div>
       </div>
+
       <MessageInputBox chatId={currentChat.chatId} />
     </main>
   );

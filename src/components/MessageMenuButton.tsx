@@ -21,6 +21,8 @@ export const MessageMenuButton = forwardRef(
       dispatch(deleteMessageById({ chatId, messageId }));
     }
 
+    function handleEditMessage() {}
+
     return (
       <div
         ref={ref}
@@ -28,7 +30,9 @@ export const MessageMenuButton = forwardRef(
         style={{ top: coords.y, left: coords.x }}
         onClick={onClick}
       >
-        <div className='button-edit'>Edit</div>
+        <div className='button-edit' onClick={handleEditMessage}>
+          Edit
+        </div>
         <div className='button-delete' onClick={handleDeleteMessage}>
           Delete
         </div>

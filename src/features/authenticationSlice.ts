@@ -57,7 +57,6 @@ export const fetchAuthenticationByToken = createAsyncThunk(
 
       if (response.ok) {
         const data = await response.json();
-        console.log('payload for ProfileSlice: ', data);
         thunkAPI.dispatch(
           setProfile({
             username: data.user.username,
@@ -131,30 +130,24 @@ export const authenticationSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchAuthentication.fulfilled, (state, action) => {
-      console.log('ACTION FULLFILFED', action.payload);
       localStorage.setItem('accessToken', action.payload.token); // TODO: Side effect надо бы убрать?
       state.isAuthorized = true;
       // console.log('[USER_ID in state THUNK]', action.payload.user_id);
     });
     builder.addCase(fetchAuthentication.rejected, (state, action) => {
-      console.log('ACTION rejected', action.payload);
       state.isAuthorized = false;
     });
     builder.addCase(fetchRegistration.fulfilled, (state, action) => {
-      console.log('ACTION FULLFILFED', action.payload);
       state.isAuthorized = true;
     });
     builder.addCase(fetchRegistration.rejected, (state, action) => {
-      console.log('ACTION rejected', action.payload);
       state.isAuthorized = false;
     });
     builder.addCase(fetchAuthenticationByToken.fulfilled, (state, action) => {
-      console.log('ACTION FULLFILFED', action.payload);
       state.isAuthorized = true;
       // console.log('[USER_ID in state THUNK]', action.payload.user_id);
     });
     builder.addCase(fetchAuthenticationByToken.rejected, (state, action) => {
-      console.log('ACTION rejected', action.payload);
       state.isAuthorized = false;
     });
   },

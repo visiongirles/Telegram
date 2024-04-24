@@ -5,8 +5,8 @@ export function mapNewMessage(
   rawMessage: MessageFromServer,
   userId: number
 ) {
-  console.log('[mapNewMessage, message from server]: ', rawMessage);
-  console.log('[mapNewMessage, userId]: ', userId);
+  // console.log('[mapNewMessage, message from server]: ', rawMessage);
+  // console.log('[mapNewMessage, userId]: ', userId);
 
   const hasRead = rawMessage.status === MessageStatus.hasRead;
   const isMine = rawMessage.author_id === userId;

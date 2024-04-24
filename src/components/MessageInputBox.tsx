@@ -15,6 +15,7 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (text === '') return;
     const updatedMessage = mapMessageForServer(text, chatId);
     dispatch(sendMessage(updatedMessage));
     setText('');
@@ -25,16 +26,23 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
   }
 
   return (
-    <form className='message-input-container' onSubmit={handleSubmit} action=''>
-      <label htmlFor='message'></label>
-      <input
-        className='message-input'
-        type='text'
-        name='message'
-        id='message'
-        value={text}
-        onChange={handleChange}
-      />
-    </form>
+    <div className='col'>
+      <div className=''>Something</div>
+      <form
+        className='message-input-container'
+        onSubmit={handleSubmit}
+        action=''
+      >
+        <label htmlFor='message'></label>
+        <input
+          className='message-input'
+          type='text'
+          name='message'
+          id='message'
+          value={text}
+          onChange={handleChange}
+        />
+      </form>
+    </div>
   );
 }

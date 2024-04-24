@@ -17,8 +17,8 @@ export default function SideNavBarElement({
     'sidebarelement' + (isSelected ? ' selected' : '');
 
   // const chatIsNotEmpty = !conversation.messages;
-
-  if (!conversation.messages) {
+  console.log('CHAT: ', conversation);
+  if (conversation.messages.length === 0) {
     return (
       <div className={sidebarelementClass} onClick={onConversationClick}>
         <div className='col'>
@@ -36,9 +36,11 @@ export default function SideNavBarElement({
     );
   }
 
-  const unreadMessages = conversation.messages.filter(
-    (message) => !message.hasRead && !message.isMine
-  ).length;
+  const unreadMessages = conversation.messages.filter((message) => {
+    if (!message.hasRead && !message.isMine) {
+      return message;
+    }
+  }).length;
 
   const lastMessage = conversation.messages[conversation.messages.length - 1];
 

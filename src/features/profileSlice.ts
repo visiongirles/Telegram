@@ -15,7 +15,6 @@ export const profileSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     setProfile(state, { payload }: PayloadAction<Profile>) {
-      console.log('[SetProfile] payload', payload);
       state.user_id = payload.user_id;
       state.username = payload.username;
       state.profilePicture = payload.profilePicture;

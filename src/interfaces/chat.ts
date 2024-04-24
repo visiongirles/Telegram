@@ -4,7 +4,7 @@ export interface Chat {
   chatId: number;
   title: string;
   photo: string;
-  messages: Message[] | null;
+  messages: Message[];
 }
 
 export interface UpdatedChat {

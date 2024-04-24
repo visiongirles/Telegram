@@ -1,6 +1,6 @@
 import TopNavBar from './TopNavBar';
 import SideNavBarElement from './SideNavBarElement';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch } from '../hooks';
 import { Chat } from '../interfaces';
 import { fetchChatById } from '../features/chatsSlice';
 

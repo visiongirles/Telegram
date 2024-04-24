@@ -71,9 +71,19 @@ export const chatsSlice = createSlice({
   initialState: initialChats,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getChatsPreview(state, action: PayloadAction<[Chat]>) {
-      console.log('[ChatSlice, payload getChatsPreview]', action.payload);
-      if (!!state.activeChats) state.activeChats = action.payload;
+    getChatsPreview(state, { payload }: PayloadAction<[Chat]>) {
+      if (!!state.activeChats) state.activeChats = payload;
+    },
+
+    setChat(
+      state,
+      { payload }: PayloadAction<{ chatId: number; messages: [Message] }>
+    ) {
+      state.activeChats?.forEach((chat) => {
+        if (chat.chatId === payload.chatId) {
+          chat.messages = payload.messages;
+        }
+      });
     },
 
     setCurrentChat(state, { payload }: PayloadAction<UpdatedChat>) {
@@ -113,8 +123,13 @@ export const chatsSlice = createSlice({
 
 // `createSlice` automatically generated action creators with these names.
 // export them as named exports from this "slice" file
-export const { getChatsPreview, setCurrentChat, addMessage, deleteMessage } =
-  chatsSlice.actions;
+export const {
+  getChatsPreview,
+  setCurrentChat,
+  addMessage,
+  deleteMessage,
+  setChat,
+} = chatsSlice.actions;
 
 // Export the slice reducer as the default export
 export default chatsSlice.reducer;

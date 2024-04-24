@@ -171,22 +171,24 @@ body {
   max-width: 1682px;
   width: 100%;
   height: 100vh;
+  // height: 500px;
   display: flex;
 
   .left {
     display: flex;
     flex-flow: column;
-    flex-grow: 3;
+    // flex-grow: 3;
     min-width: 100px;
     max-width: 350px;
-    overflow: hidden;
+    // overflow: hidden;
     width: 100%;
   }
 
   .right {
     display: flex;
-    flex-grow: 1;
+    // flex-grow: 1;
     width: 100%;
+    // height: 500px;
   }
 }
 
@@ -284,22 +286,107 @@ body {
   display: flex;
   flex-flow: column;
   background: transparent;
-  height: 100vh;
+  // height: 500px;
   width: 100%;
   margin: 0 auto;
   // max-width: 600px;
   max-width: min(100% - 1rem, var(--messages-container-width) - 1.625rem);
 }
 
+.chatbox-wrapper {
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+// РАБОЧАЯ ВЕРСИЯ СКРОЛЛА №1
+// 1. нет justify-content: flex-end
+// 2. overflow: auto + в связке с тем, что у родителя и дочернего элементов position relative и absolute соответственно
+// 3. родителю обязательно задать высоту и position: relative
+// 4. чайлду position: absolute и начальное положение через top left right bottom или inset
+
+// ВРАППЕР:
+// .chatbox-wrapper {
+//   height: 100vh;
+//     width: 100%;
+//     overflow: auto;
+//     position: relative
+// }
+
+// ЧАТ-БОКС
+// .chatbox {
+//   display: flex;
+//   width: 100%;
+//   flex-direction: column;
+//   position: absolute;
+//   inset: 0; // равнозначно top bottom left right: 0
+// }
+
+// РАБОЧАЯ ВЕРСИЯ СКРОЛЛА №2
+// 1. У wrapper не должно быть display:flex. указать высоту или убедиться, что она есть у родителя wrapper
+// 2. Для ЧАТ-БОКС нет каких-либо требований по css/ высоту зададут элементы списка (сообщения)
+
+// #scroll-wrapper {
+//   overflow-y: auto;
+//   background-color: #bbdefb;
+//   padding: 7px;
+// }
+
+// #messages {
+//   display: flex;
+//   min-height: 100%;
+//   flex-direction: column;
+//   justify-content: flex-end;
+// }
+
+// для прокрутки скролла - использовать скрипт
+//   document.getElementById('scroll-wrapper').scrollTo(0, $messages.clientHeight + 500);
+
+// РАБОЧАЯ ВЕРСИЯ СКРОЛЛА №3 - инверсия сообщений
+// высота задана у верхнего nav top bar и input messages bar
+
+// https://codesandbox.io/p/sandbox/frosty-wilbur-67gdlv?file=%2Findex.html%3A48%2C5-52%2C6
+
+// .content {
+//   flex-grow: 1;
+//   overflow: auto;
+//   position: relative;
+//   display: flex;
+//   flex-direction: column-reverse;
+// }
+// .chatbox {
+//   display: flex;
+//   flex-direction: column;
+//   position: absolute;
+//   inset: 0;
+//   flex: 1 0 auto;
+// }
+
 .chatbox {
+  padding: var(--standartPadding) 0;
   display: flex;
   width: 100%;
   flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
+  // display: flex;
+  // position: absolute;
+  // inset: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  // justify-content: end;
+  // overflow: hidden;
+  // height: 100vh;
+  // height: 100%;
+  // height: 500px;
+  // overflow-y: scroll;
 }
 
 /* || MessageBox */
+
+// .chatbox > :first-child {
+//   margin-top: auto;
+// }
 
 .message-box {
   cursor: pointer;
@@ -346,7 +433,20 @@ body {
 }
 
 /* || Message Input Box */
+
 .message-input-container {
+  // cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgrey;
+  border-radius: var(--standartBorderRadius);
+  background-color: white;
+  color: black;
+  width: 100%;
+  padding: var(--biggerPadding);
+}
+
+.message-input-form {
   display: flex;
   width: 100%;
   padding-bottom: var(--standartPadding);
@@ -354,10 +454,12 @@ body {
 
 .message-input {
   width: 100%;
-  // padding: var(--biggerPadding);
+  border: 0;
   padding: var(--biggerPadding);
-  border: 1px solid lightgrey;
-  border-radius: var(--standartBorderRadius);
+}
+
+.message-input:focus {
+  outline: none;
 }
 
 .message-input-button {

@@ -11,6 +11,7 @@ import {
   addMessage,
   deleteMessage,
   setMessagesRead,
+  setChat,
 } from '../features/chatsSlice';
 import { mapCurrentChat } from '../utils/mapCurrentChat';
 import { mapNewMessage } from '../utils/mapNewMessage';
@@ -26,7 +27,6 @@ export default function TelegramPage() {
   const currentChat = chats?.find((chat) => chat.chatId === currentChatId);
   const userId = useAppSelector((store) => store.profile.user_id);
 
-  console.log('[USER_ID FROM state]', userId);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -40,13 +40,30 @@ export default function TelegramPage() {
         case 'get-chats-preview': {
           console.table('get-chats-preview', responseData.chatsPreview);
           const rawChatsPreview = responseData.chatsPreview;
-          console.log('CHAT PREVIEWS ', rawChatsPreview);
 
           // prepare ChatPreviews for UI
-          const chatsPreview = rawChatsPreview.map(mapChatsPreview);
+          const chatsPreview = rawChatsPreview.map((rawChatPreview: any) => {
+            return mapChatsPreview(rawChatPreview, userId);
+          });
 
           // Update state
           dispatch(getChatsPreview(chatsPreview));
+          break;
+        }
+        case 'set-chat-by-id': {
+          const rawMessages = responseData.messages;
+
+          const mappedMessages = rawMessages.map((item: any) =>
+            mapCurrentChat(item, userId)
+          );
+
+          dispatch(
+            setChat({
+              chatId: responseData.chatId,
+              messages: mappedMessages,
+            })
+          );
+
           break;
         }
         case 'get-chat-by-id': {
@@ -118,7 +135,7 @@ export default function TelegramPage() {
         <SideNavBar chats={chats} currentChatId={currentChatId} />
       </div>
       <div className='right'>
-        <ChatBox currentChat={currentChat} />
+        {currentChat && <ChatBox currentChat={currentChat} />}
       </div>
     </div>
   );
