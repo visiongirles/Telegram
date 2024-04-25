@@ -8,11 +8,12 @@ interface MessageMenuButtonProps {
   messageId: number;
   coords: Point2D;
   onClick: () => void;
+  onEdit: (isEditing: boolean) => void;
 }
 
 export const MessageMenuButton = forwardRef(
   (
-    { chatId, messageId, coords, onClick }: MessageMenuButtonProps,
+    { chatId, messageId, coords, onClick, onEdit }: MessageMenuButtonProps,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     const dispatch = useAppDispatch();
@@ -21,7 +22,10 @@ export const MessageMenuButton = forwardRef(
       dispatch(deleteMessageById({ chatId, messageId }));
     }
 
-    function handleEditMessage() {}
+    function handleEditMessage() {
+      // 1, передать id Message, кот редактируем - InuotBoxMessage
+      onEdit(true);
+    }
 
     return (
       <div

@@ -6,10 +6,16 @@ import { sendMessage } from '../features';
 
 interface MessageInputBoxProps {
   chatId: number;
+  isEditing: boolean;
+  choosenMessageId?: number;
   // currentChat: Chat | null;
 }
 
-export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
+export default function MessageInputBox({
+  chatId,
+  isEditing,
+  choosenMessageId,
+}: MessageInputBoxProps) {
   const [text, setText] = useState('');
   const dispatch = useAppDispatch();
 
@@ -23,16 +29,13 @@ export default function MessageInputBox({ chatId }: MessageInputBoxProps) {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setText(event.target.value);
+    // setIsEditing(true);
   }
 
   return (
-    <div className='col'>
-      <div className=''>Something</div>
-      <form
-        className='message-input-container'
-        onSubmit={handleSubmit}
-        action=''
-      >
+    <div className='message-input-container'>
+      {isEditing && <div className=''>Something</div>}
+      <form className='message-input-form' onSubmit={handleSubmit} action=''>
         <label htmlFor='message'></label>
         <input
           className='message-input'

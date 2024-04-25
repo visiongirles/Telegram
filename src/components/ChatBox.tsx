@@ -13,10 +13,13 @@ interface ChatBoxProps {
 // Context Menu Button options
 const initialContextMenuButtonOptions = {
   visibility: false,
-  chosenMessageId: 0,
+  chosenMessageId: -1,
 };
 
 export default function ChatBox({ currentChat }: ChatBoxProps) {
+  // Message editing set-up
+  const [isEditing, setIsEditing] = useState(false);
+
   // Context Menu set-up: coordinates
   const [coords, setCoords] = useState<Point2D>({ x: 0, y: 0 });
 
@@ -108,12 +111,17 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
               messageId={contextMenuButtonOptions.chosenMessageId}
               coords={coords}
               onClick={handleCloseMenu}
+              onEdit={setIsEditing}
             />
           )}
         </div>
       </div>
 
-      <MessageInputBox chatId={currentChat.chatId} />
+      <MessageInputBox
+        chatId={currentChat.chatId}
+        isEditing={isEditing}
+        choosenMessageId={contextMenuButtonOptions.chosenMessageId}
+      />
     </main>
   );
 }
