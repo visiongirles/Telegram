@@ -12,6 +12,7 @@ import {
   deleteMessage,
   setMessagesRead,
   setChat,
+  addUpdatedMessage,
 } from '../features/chatsSlice';
 import { mapCurrentChat } from '../utils/mapCurrentChat';
 import { mapNewMessage } from '../utils/mapNewMessage';
@@ -93,7 +94,7 @@ export default function TelegramPage() {
           break;
         }
         case 'create-new-message': {
-          console.table('create-new-message', responseData.message);
+          // console.table('create-new-message', responseData.message);
           const chatId: number = responseData.chatId;
           const rawMessage: MessageFromServer = responseData.message;
 
@@ -102,7 +103,20 @@ export default function TelegramPage() {
 
           // Update state
           dispatch(addMessage(mappedMessage));
-          // dispatch(updateChatsPreview(mappedMessage));
+          break;
+        }
+        case 'edit-message': {
+          const chatId: number = responseData.chatId;
+          const rawMessage: MessageFromServer = responseData.message;
+          console.log('EDITED MESSAGE on client side: ', responseData.message);
+
+          // prepare Message for UI
+          const mappedMessage = mapNewMessage(chatId, rawMessage, userId);
+
+          console.log('EDITED MESSAGE on client side: ', mappedMessage);
+          // Update state
+          dispatch(addUpdatedMessage(mappedMessage));
+
           break;
         }
         case 'delete-message-by-id': {

@@ -4,6 +4,7 @@ import TopNavBar from './TopNavBar';
 import { Chat, Point2D } from '../interfaces/';
 import { MessageMenuButton } from './MessageMenuButton';
 import React, { useEffect, useRef, useState } from 'react';
+// import { placeholder } from '../data/placeholder';
 
 interface ChatBoxProps {
   currentChat: Chat;
@@ -14,11 +15,23 @@ interface ChatBoxProps {
 const initialContextMenuButtonOptions = {
   visibility: false,
   chosenMessageId: -1,
+  // message: {},
+};
+
+export const initialEditingMessageOptions = {
+  isEditing: false,
+  chosenMessageId: -1,
+  // message: placeholder.chats.chats[0].messages[0],
 };
 
 export default function ChatBox({ currentChat }: ChatBoxProps) {
   // Message editing set-up
-  const [isEditing, setIsEditing] = useState(false);
+
+  const [editingMessageOptions, setEditingMessageOptions] = useState(
+    initialEditingMessageOptions
+  );
+  // const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState('');
 
   // Context Menu set-up: coordinates
   const [coords, setCoords] = useState<Point2D>({ x: 0, y: 0 });
@@ -64,6 +77,22 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
     // console.log('messagesListRef:', messagesListRef);
   }, [currentChat.messages[currentChat.messages.length - 1]]);
 
+  useEffect(() => {
+    if (editingMessageOptions.isEditing) {
+      const editingMessage = messages.filter((message) => {
+        console.log(
+          'editingMessageOptions.chosenMessageId: ',
+          editingMessageOptions.chosenMessageId
+        );
+        return message.id === editingMessageOptions.chosenMessageId;
+      });
+      editingMessageText = editingMessage[0].content;
+      setText(editingMessageText);
+      // setEditingMessageOptions(initialEditingMessageOptions);
+      // console.log('editingMessage:', editingMessage);
+    }
+  }, [editingMessageOptions.isEditing]);
+
   // check if currentChat !== undefined, also allows to decontruct messages
   if (!currentChat?.chatId || !currentChat.messages) return;
 
@@ -89,6 +118,22 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
     setContextMenuButtonOptions(initialContextMenuButtonOptions);
   }
 
+  let editingMessageText: string = '';
+
+  // if (editingMessageOptions.isEditing) {
+  //   const editingMessage = messages.filter((message) => {
+  //     console.log(
+  //       'editingMessageOptions.chosenMessageId: ',
+  //       editingMessageOptions.chosenMessageId
+  //     );
+  //     return message.id === editingMessageOptions.chosenMessageId;
+  //   });
+  //   editingMessageText = editingMessage[0].content;
+  //   setText(editingMessageText);
+  //   // setEditingMessageOptions(initialEditingMessageOptions);
+  //   // console.log('editingMessage:', editingMessage);
+  // }
+
   return (
     <main className='main-content'>
       <TopNavBar />
@@ -111,7 +156,7 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
               messageId={contextMenuButtonOptions.chosenMessageId}
               coords={coords}
               onClick={handleCloseMenu}
-              onEdit={setIsEditing}
+              onEdit={setEditingMessageOptions}
             />
           )}
         </div>
@@ -119,8 +164,11 @@ export default function ChatBox({ currentChat }: ChatBoxProps) {
 
       <MessageInputBox
         chatId={currentChat.chatId}
-        isEditing={isEditing}
+        editingMessageOptions={editingMessageOptions}
+        setEditingMessageOptions={setEditingMessageOptions}
         choosenMessageId={contextMenuButtonOptions.chosenMessageId}
+        text={text}
+        setText={setText}
       />
     </main>
   );

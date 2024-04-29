@@ -446,6 +446,13 @@ body {
   padding: var(--biggerPadding);
 }
 
+.message-edit-container {
+  background-color: lightgray;
+  padding: var(--biggerPadding);
+  border-radius: var(--standartBorderRadius);
+  border-left: 2px solid purple;
+}
+
 .message-input-form {
   display: flex;
   width: 100%;

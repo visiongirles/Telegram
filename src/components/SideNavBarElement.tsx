@@ -16,8 +16,6 @@ export default function SideNavBarElement({
   const sidebarelementClass =
     'sidebarelement' + (isSelected ? ' selected' : '');
 
-  // const chatIsNotEmpty = !conversation.messages;
-  console.log('CHAT: ', conversation);
   if (conversation.messages.length === 0) {
     return (
       <div className={sidebarelementClass} onClick={onConversationClick}>

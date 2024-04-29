@@ -1,7 +1,6 @@
 import { Chat, MessageStatus } from '../interfaces';
 
 export function mapChatsPreview(rawChatPreview: any, userId: number) {
-  console.log('CHAT PREVIEW: ', rawChatPreview);
   // если пустое сообщение rawChatPreview.author_id === null
   // rawChatPreview.author_id - null
   // chat_id: 1

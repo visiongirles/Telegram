@@ -11,6 +11,7 @@ import { placeholder } from '../data/placeholder';
 import { webSocketSend } from '../services/client';
 import { DeleteMessageById } from '../interfaces/deleteMessageById';
 import { UpdatedMessage } from '../interfaces/updatedMessage';
+import { EditedMessageForServer } from '../interfaces/EditedMessageForServer';
 
 interface ChatState {
   currentChat: number | null;
@@ -31,6 +32,14 @@ export const sendMessage = createAsyncThunk(
   'createNewMessage',
   async (message: MessageForServer) => {
     const data = JSON.stringify({ type: 'create-new-message', message });
+    webSocketSend(data);
+  }
+);
+
+export const editMessage = createAsyncThunk(
+  'editMessage',
+  async (message: EditedMessageForServer) => {
+    const data = JSON.stringify({ type: 'edit-message', message });
     webSocketSend(data);
   }
 );
@@ -108,6 +117,21 @@ export const chatsSlice = createSlice({
       });
     },
 
+    addUpdatedMessage(state, { payload }: PayloadAction<UpdatedMessage>) {
+      state.activeChats?.forEach((chat) => {
+        if (chat.chatId === payload.chatId) {
+          const updatedMessage = payload.message;
+
+          const updatedMessages = chat.messages.map((message) => {
+            if (message.id === payload.message.id) {
+              return updatedMessage;
+            }
+            return message;
+          });
+          chat.messages = updatedMessages;
+        }
+      });
+    },
     deleteMessage(state, { payload }: PayloadAction<DeletedMessage>) {
       state.activeChats?.forEach((chat) => {
         if (chat.chatId === payload.chatId) {
@@ -129,6 +153,7 @@ export const {
   addMessage,
   deleteMessage,
   setChat,
+  addUpdatedMessage,
 } = chatsSlice.actions;
 
 // Export the slice reducer as the default export

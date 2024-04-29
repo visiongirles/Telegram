@@ -8,7 +8,10 @@ interface MessageMenuButtonProps {
   messageId: number;
   coords: Point2D;
   onClick: () => void;
-  onEdit: (isEditing: boolean) => void;
+  onEdit: (editingOption: {
+    isEditing: boolean;
+    chosenMessageId: number;
+  }) => void;
 }
 
 export const MessageMenuButton = forwardRef(
@@ -24,7 +27,10 @@ export const MessageMenuButton = forwardRef(
 
     function handleEditMessage() {
       // 1, передать id Message, кот редактируем - InuotBoxMessage
-      onEdit(true);
+      // нужно передавать
+      // setText - текст сообщения которое мы меняем
+      //
+      onEdit({ isEditing: true, chosenMessageId: messageId });
     }
 
     return (
