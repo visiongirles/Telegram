@@ -9,7 +9,8 @@ export function mapChatsPreview(rawChatPreview: any, userId: number) {
   // photo: "https://gameguru.ru/clf/44/04/c0/01/news.1610973258596.jpg"
   // status: null
   // txt:  null
-  //username: "Сутулая собака"
+  // username: "Сутулая собака"
+  // unread_message_count: '0'
 
   const messages = rawChatPreview.author_id
     ? [
